@@ -1,0 +1,27 @@
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        #imageArea {
+            position:fixed;
+            background-color: #ffffff;
+            border: 2px solid black;
+            top:25%;
+            left:50%;
+            transform:translate(-50%, -50%);
+
+        }
+        #reference {
+            position:fixed;
+            background-color: #ffffff;
+            border: 2px solid black;
+            top:75%;
+            left:50%;
+            transform:translate(-50%, -50%);
+
+        }
