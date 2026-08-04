@@ -6,14 +6,26 @@
     </head>
     <body>
 
-        <canvas id="imageArea">
+        <div id="canvasContainer">
+            <canvas id="imageArea"></canvas>
+            <canvas id="reference"> </canvas>
+        </div>
 
-        </canvas>
+        <button id="openFileDropper"> Click Me </button>
+        
+        <div id="fileOpener" style="display:none">
+            <div id="file1">
+                <span id="wordsInside">Drag or Choose an image file</span>
+                <input type="file" id="imageInput" accept="image/*" id="fileInput1" hidden>
+            </div>
+            <div id="file2">
+                <span id="wordsInside">Drag or Choose an image file reference image</span>
+                <input type="file" id="imageInput" accept="image/*" id="fileInput1" hidden>
+            </div>
+        </div>
 
-        <canvas id="reference">
-            
-        </canvas>
-        <input type="file" id="referenceImageInput" accept="image/">
+    <button id="downloadButton">Download Image</button>
+
 
     <script src="square.js" type="module"></script>
     <script src="main.js" type="module"></script>

@@ -18,7 +18,7 @@ function firstCanvas(){
 
         const img = new Image();
 
-        img.src = '/testimages/download.webp';
+        img.src = '/testimages/image1.jpg';
 
         img.onload = () => {
 
@@ -60,11 +60,11 @@ function changeImageAndDisplay(arr, ctx, arr2){
 
     let referenceImageArray = [];
 
-    referenceImage.src = '/testimages/reference.png';
+    referenceImage.src = '/testimages/image2.jpg';
 
     referenceImage.onload = () => {
-        referenceCanvas.width = referenceImage.width / 2;
-        referenceCanvas.height = referenceImage.height / 2;
+        referenceCanvas.width = referenceImage.width / 1.5;
+        referenceCanvas.height = referenceImage.height / 1.5;
 
         ctxReference.drawImage(referenceImage, 0, 0, referenceCanvas.width, referenceCanvas.height);
 
@@ -107,10 +107,9 @@ function sort(arr){
 // readjust the functions
 function readjust(arr1, arr2){
     for (let i = 0; i < arr1.length; i++){
-        const temp1 = arr2[i].x;
-        const temp2 = arr2[i].y;
-        arr1[i].x = temp1;
-        arr1[i].y = temp2;
+        const sq = arr1[i];
+        sq.changeNews(arr2[i].x, arr2[i].y);
+        sq.calculateDistance();
     }
     return arr1;
 }
@@ -122,4 +121,114 @@ function createSquares(arr, ctx){
         ctx.fillStyle = sq.color;
         ctx.fillRect(sq.x, sq.y, sq.width, sq.height);
     }
+}
+
+// download the new image
+document.getElementById('downloadButton').addEventListener('click', downloadImage);
+
+function downloadImage(){
+    const pngUrl = canvas.toDataURL("image/png");
+    const link = document.createElement('a');
+    link.download = pngUrl;
+    link.href = canvas.toDataURL();
+    link.click();
+}
+
+let start = false;
+
+function animateSquares(time){
+
+    if (start)
+        for (let i = 0; i < pixelObjectArray.length; i++){
+            const sq = pixelObjectArray[i];
+            if((sq.x > sq.newX + 0.1 || sq.x < sq.newX - 0.1) || (sq.y > sq.newY + 0.1 || sq.y < sq.newY - 0.1)){
+                sq.changeXY();
+            }
+        }
+    createSquares(pixelObjectArray, ctx);
+
+    requestAnimationFrame(animateSquares);
+
+}
+
+requestAnimationFrame(animateSquares);
+
+
+// initilizing file dropper
+
+const buttonForFileDropper = document.getElementById("openFileDropper");
+const fileOpener = document.getElementById("fileOpener");
+
+buttonForFileDropper.addEventListener("click", displayFileDropper);
+
+function displayFileDropper(){
+
+    fileOpener.style.display = "inline-block";
+    buttonForFileDropper.style.display = "none";
+
+}
+
+
+// first file dropper for file openers or smthing
+const file1 = document.getElementById("file1");
+const file2 = document.getElementById("file2");
+
+file1.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    file1.classList.add('pulse');
+});
+file1.addEventListener('drop', (e) => {
+    e.preventDefault();
+    file1.classList.remove('pulse');
+});
+file1.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    file1.classList.add('pulse');
+});
+file1.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    file1.classList.remove('pulse');
+});
+
+file2.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    file2.classList.add('pulse');
+});
+file2.addEventListener('dragenter', (e) => {
+    e.preventDefault();
+    file2.classList.add('pulse');
+})
+file2.addEventListener('drop', (e) => {
+    e.preventDefault();
+    file2.classList.remove('pulse');
+
+    droppedReference(e);
+
+})
+file2.addEventListener('dragleave', (e) => {
+    e.preventDefault();
+    file2.classList.remove('pulse');
+})
+
+
+function droppedReference(e){
+
+    const filesArray = [...e.dataTransfer.files];
+    const file = filesArray[0];
+
+
+    console.log(file);
+
+    if (file.type.startsWith('image/')){
+        const reader = new FileReader();
+
+        reader.onload = (event) => {
+            file2.style.backgroundImage = `url(${event.target.result})`;
+            file2.classList.add('showImage');
+        };
+
+
+        reader.readAsDataURL(file);
+    }
+
 }
