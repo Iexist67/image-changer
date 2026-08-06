@@ -5,20 +5,18 @@ import square from "./square.js";
 
 let pixelObjectArray = [];
 
-let canvas;
+const canvas = document.getElementById("imageArea");
 let ctx;
 
     // first canvas 
 function firstCanvas(){
-        canvas = document.getElementById('imageArea');
-        
 
         // Get the 2D drawing context
         ctx = canvas.getContext('2d', {willReadFrequently: true});
 
         const img = new Image();
 
-        img.src = '/testimages/image1.jpg';
+        img.src = changeImage;
 
         img.onload = () => {
 
@@ -51,20 +49,37 @@ function changeImageAndDisplay(arr, ctx, arr2){
     return arr;
 }
 
+const referenceCanvas = document.getElementById("reference");
+ let referenceImageArray = [];
 // second canvas
-    const referenceCanvas = document.getElementById("reference");
+function runImage(){
 
     const ctxReference = referenceCanvas.getContext('2d', {willReadFrequently : true});
 
     const referenceImage = new Image();
 
-    let referenceImageArray = [];
+    referenceImageArray = [];
 
-    referenceImage.src = '/testimages/image2.jpg';
+    referenceImage.src = referenceImageFile;
 
     referenceImage.onload = () => {
-        referenceCanvas.width = referenceImage.width / 1.5;
-        referenceCanvas.height = referenceImage.height / 1.5;
+
+        const viewPortHeight = window.innerHeight * 0.40;
+        const viewPortWidth = window.innerWidth * 0.40;
+
+        referenceCanvas.width = referenceImage.width;
+        referenceCanvas.height = referenceImage.height;
+
+        const ratio = referenceCanvas.width / referenceCanvas.height;
+
+        if (referenceCanvas.width > viewPortWidth){
+            referenceCanvas.width = viewPortWidth;
+            referenceCanvas.height = referenceCanvas.width / ratio;
+        }
+        if (referenceCanvas.height > viewPortHeight){
+            referenceCanvas.height = viewPortHeight;
+            referenceCanvas.width = referenceCanvas.height * ratio;
+        }
 
         ctxReference.drawImage(referenceImage, 0, 0, referenceCanvas.width, referenceCanvas.height);
 
@@ -74,6 +89,7 @@ function changeImageAndDisplay(arr, ctx, arr2){
         firstCanvas();
 
     }
+}
 
 // put the color into an array of objects
 function putColorIntoArray(canvas, ctx, arr){
@@ -168,67 +184,122 @@ function displayFileDropper(){
 
 }
 
+let backgroundURL = [];
+let backgroundElement = [];
 
-// first file dropper for file openers or smthing
-const file1 = document.getElementById("file1");
-const file2 = document.getElementById("file2");
+// first and second file dropper for file openers or smthing
+function setupDropzone(element, preview, wordsInside) {
+    element.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        element.classList.add('pulse');
+    });
 
-file1.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    file1.classList.add('pulse');
-});
-file1.addEventListener('drop', (e) => {
-    e.preventDefault();
-    file1.classList.remove('pulse');
-});
-file1.addEventListener('dragenter', (e) => {
-    e.preventDefault();
-    file1.classList.add('pulse');
-});
-file1.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    file1.classList.remove('pulse');
-});
+    element.addEventListener('dragenter', (e) => {
+        e.preventDefault();
+        element.classList.add('pulse');
+    });
 
-file2.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    file2.classList.add('pulse');
-});
-file2.addEventListener('dragenter', (e) => {
-    e.preventDefault();
-    file2.classList.add('pulse');
-})
-file2.addEventListener('drop', (e) => {
-    e.preventDefault();
-    file2.classList.remove('pulse');
+    element.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        element.classList.remove('pulse');
+    });
 
-    droppedReference(e);
+    element.addEventListener('drop', (e) => {
+        e.preventDefault();
+        element.classList.remove('pulse');
+        const filesArray = [...e.dataTransfer.files];
+        const file = filesArray[0];
 
-})
-file2.addEventListener('dragleave', (e) => {
-    e.preventDefault();
-    file2.classList.remove('pulse');
-})
+        if (!file) return;
 
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
 
-function droppedReference(e){
+            reader.onload = (event) => {
+                backgroundURL.push(event.target.result);
+                backgroundElement.push(element);
+                previewImages(element, backgroundURL, backgroundElement, preview, wordsInside);
+            };
 
-    const filesArray = [...e.dataTransfer.files];
-    const file = filesArray[0];
+            reader.onerror = () => {
+                console.error('Failed to read file');
+            };
 
+            reader.readAsDataURL(file);
+        } else {
+            console.log('Not an image file:', file.type);
+        }
+    });
+}
 
-    console.log(file);
+function setupForClick(clickableElement, hiddenInput, preview, wordsInside){
+    clickableElement.addEventListener('click', () => {
+        hiddenInput.click();
+    });
 
-    if (file.type.startsWith('image/')){
+    hiddenInput.addEventListener('change', () => {
+        const file = hiddenInput.files[0];
+        if (!file || !file.type.startsWith('image/')) return;
+
         const reader = new FileReader();
-
         reader.onload = (event) => {
-            file2.style.backgroundImage = `url(${event.target.result})`;
-            file2.classList.add('showImage');
+            backgroundURL.push(event.target.result);
+            backgroundElement.push(clickableElement);
+            previewImages(clickableElement, backgroundURL, backgroundElement, preview, wordsInside);
         };
-
-
         reader.readAsDataURL(file);
+    });
+}
+
+
+// apply it to both elements
+const file1 = document.getElementById('file1');
+const file2 = document.getElementById('file2');
+const imageInput1 = document.getElementById("imageInput1");
+const imageInput2 = document.getElementById("imageInput2");
+const preview1 = document.getElementById("preview1");
+const preview2 = document.getElementById("preview2");
+const wordsInside1 = document.getElementById("wordsInside1");
+const wordsInside2 = document.getElementById("wordsInside2");
+
+setupDropzone(file1, preview1, wordsInside1);
+setupDropzone(file2, preview2, wordsInside2);
+
+setupForClick(file1, imageInput1, preview1, wordsInside1);
+setupForClick(file2, imageInput2, preview2, wordsInside2);
+
+let changeImage;
+let referenceImageFile;
+
+function previewImages(element, arr1, arr2, preview, wordsInside){
+
+    for (let i = 0; i < arr1.length; i++){
+        if (element == arr2[i]){
+                preview.style.backgroundImage = `url(${arr1[i]})`;
+                preview.classList.add('showImage');
+                wordsInside.innerHTML = 'PREVIEW';
+                element.style.pointerEvents = 'none';
+                
+
+        }
+        if (element == file1){
+            referenceImageFile = arr1[i];
+        }
+        if (element == file2){
+            changeImage = arr1[i];
+        }
     }
 
+}
+
+const startImages = document.getElementById("startImages");
+
+startImages.addEventListener('click', startImageChange);
+
+function startImageChange(){
+    canvas.style.display = 'inline-block';
+    referenceCanvas.style.display = 'inline-block';
+    runImage();
+    fileOpener.style.display = 'none';
+    start = true;
 }

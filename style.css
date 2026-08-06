@@ -6,13 +6,14 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            background: #D8D1C8;
         }
         #imageArea {
             position:fixed;
             background-color: #ffffff;
             border: 2px solid black;
-            top:25%;
-            left:50%;
+            top:50%;
+            left:75%;
             transform:translate(-50%, -50%);
             display:none;
 
@@ -21,8 +22,8 @@
             position:fixed;
             background-color: #ffffff;
             border: 2px solid black;
-            top:75%;
-            left:50%;
+            top:50%;
+            left:25%;
             transform:translate(-50%, -50%);
             display:none;
         }
@@ -40,13 +41,12 @@
         
         #file1{
             position:fixed;
-            top:25%;
-            left:50%;
+            top:50%;
+            left:25%;
             transform:translate(-50%, -50%);
-            height: 35%;
-            width: 50%;
-            background-color: #ddeba2;
-            border:4px dashed black;
+            height: 50%;
+            width: 35%;
+            background-color:#333333;
             border-radius:35px;
             corner-shape: squircle;
             content: '';
@@ -57,26 +57,17 @@
 
         #file2{
             position:fixed;
-            top:75%;
-            left:50%;
+            top:50%;
+            left:75%;
             transform:translate(-50%, -50%);
-            height: 35%;
-            width: 50%;
-            background-color: #ddeba2;
-            border:4px dashed black;
+            height: 50%;
+            width: 35%;            
+            background-color:#333333;
             border-radius:35px;
             corner-shape: squircle;
             content: '';
             overflow:hidden;
             box-shadow: 0px 0px 1px 1px #abdf901a;
-        }
-
-        #wordsInside{
-            position:absolute;
-            top:50%;
-            left:50%;
-            transform:translate(-50%, -50%);
-
         }
 
         #downloadButton{
@@ -89,8 +80,36 @@
         .showImage{
             background-size: cover;
             background-position: center;
-            opacity: 0.25;
+            opacity: 0.2;
             color:black;
+        }
+        #wordsInside1{
+           pointer-events:none;
+             pointer-events:none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size:25px;
+            margin:0;
+            padding:0;
+            width:100%;
+            text-align:center;
+            color:white;
+        }
+        #wordsInside2{
+            pointer-events:none;
+             pointer-events:none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size:25px;
+            margin:0;
+            padding:0;
+            width:100%;
+            text-align:center;
+            color:white;
         }
 
         @keyframes pulsify{
@@ -100,4 +119,48 @@
             100% {
                 box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
             }
+        }
+
+        #startImages{
+            position:fixed;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            z-index:9999;
+            display:none;
+        }
+
+        #controlPanel{
+            position:fixed;
+            top:92.5%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height:15%;
+            margin:0;
+            border-radius: 15px 15px 0px 0px;
+            background-color:#333333;
+            
+
+        }
+
+        #preview1{
+            position:absolute;
+            pointer-events:none;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height:100%;
+
+        }
+        #preview2{
+            position:absolute;
+            pointer-events:none;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height:100%;
+
         }
