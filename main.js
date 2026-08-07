@@ -30,12 +30,10 @@ function firstCanvas(){
         }
 }
 
-// only when the enter key is pressed, change the image and display it
-document.addEventListener('keydown', (event) => {
-    if (event.key === 'Enter') {
-        // change the image and display it
-        pixelObjectArray = changeImageAndDisplay(pixelObjectArray, ctx, referenceImageArray);
-    }
+// only when the runAnimation button is pressed
+const runAnimation = document.getElementById("runAnimation");
+runAnimation.addEventListener('click', () => {
+    pixelObjectArray = changeImageAndDisplay(pixelObjectArray, ctx, referenceImageArray);
 });
 
 // change the image and display it
@@ -67,8 +65,8 @@ function runImage(){
         const viewPortHeight = window.innerHeight * 0.40;
         const viewPortWidth = window.innerWidth * 0.40;
 
-        referenceCanvas.width = referenceImage.width;
-        referenceCanvas.height = referenceImage.height;
+        referenceCanvas.width = referenceImage.width * 1.5;
+        referenceCanvas.height = referenceImage.height * 1.5;
 
         const ratio = referenceCanvas.width / referenceCanvas.height;
 
@@ -154,13 +152,14 @@ let start = false;
 
 function animateSquares(time){
 
-    if (start)
+    if (start){
         for (let i = 0; i < pixelObjectArray.length; i++){
             const sq = pixelObjectArray[i];
             if((sq.x > sq.newX + 0.1 || sq.x < sq.newX - 0.1) || (sq.y > sq.newY + 0.1 || sq.y < sq.newY - 0.1)){
                 sq.changeXY();
             }
         }
+    }
     createSquares(pixelObjectArray, ctx);
 
     requestAnimationFrame(animateSquares);
@@ -180,7 +179,7 @@ buttonForFileDropper.addEventListener("click", displayFileDropper);
 function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
-    buttonForFileDropper.style.display = "none";
+    buttonForFileDropper.style.pointerEvents = 'none';
 
 }
 
@@ -188,7 +187,7 @@ let backgroundURL = [];
 let backgroundElement = [];
 
 // first and second file dropper for file openers or smthing
-function setupDropzone(element, preview, wordsInside) {
+function setupDropzone(element, preview, wordsInside, cancel, hidden) {
     element.addEventListener('dragover', (e) => {
         e.preventDefault();
         element.classList.add('pulse');
@@ -207,6 +206,7 @@ function setupDropzone(element, preview, wordsInside) {
     element.addEventListener('drop', (e) => {
         e.preventDefault();
         element.classList.remove('pulse');
+         if (hidden.files.length > 0) return; // already has a file — do nothing
         const filesArray = [...e.dataTransfer.files];
         const file = filesArray[0];
 
@@ -216,9 +216,12 @@ function setupDropzone(element, preview, wordsInside) {
             const reader = new FileReader();
 
             reader.onload = (event) => {
-                backgroundURL.push(event.target.result);
-                backgroundElement.push(element);
-                previewImages(element, backgroundURL, backgroundElement, preview, wordsInside);
+                    backgroundURL.push(event.target.result);
+                    backgroundElement.push(element);
+                    previewImages(element, backgroundURL, backgroundElement, preview, wordsInside);
+                    cancel.classList.remove('cancelButtonInactive');
+                    cancel.classList.add('cancelButtonActive');
+                
             };
 
             reader.onerror = () => {
@@ -232,8 +235,10 @@ function setupDropzone(element, preview, wordsInside) {
     });
 }
 
-function setupForClick(clickableElement, hiddenInput, preview, wordsInside){
+function setupForClick(clickableElement, hiddenInput, preview, wordsInside, cancel){
+
     clickableElement.addEventListener('click', () => {
+        if (hiddenInput.files.length > 0) return; // already has a file — do nothing
         hiddenInput.click();
     });
 
@@ -243,13 +248,18 @@ function setupForClick(clickableElement, hiddenInput, preview, wordsInside){
 
         const reader = new FileReader();
         reader.onload = (event) => {
+
             backgroundURL.push(event.target.result);
             backgroundElement.push(clickableElement);
             previewImages(clickableElement, backgroundURL, backgroundElement, preview, wordsInside);
+            cancel.classList.remove('cancelButtonInactive');
+            cancel.classList.add('cancelButtonActive');
+            
         };
         reader.readAsDataURL(file);
     });
 }
+
 
 
 // apply it to both elements
@@ -261,12 +271,15 @@ const preview1 = document.getElementById("preview1");
 const preview2 = document.getElementById("preview2");
 const wordsInside1 = document.getElementById("wordsInside1");
 const wordsInside2 = document.getElementById("wordsInside2");
+const cancellation1 = document.getElementById("cancel1");
+const cancellation2 = document.getElementById("cancel2");
 
-setupDropzone(file1, preview1, wordsInside1);
-setupDropzone(file2, preview2, wordsInside2);
 
-setupForClick(file1, imageInput1, preview1, wordsInside1);
-setupForClick(file2, imageInput2, preview2, wordsInside2);
+setupDropzone(file1, preview1, wordsInside1, cancellation1, imageInput1);
+setupDropzone(file2, preview2, wordsInside2, cancellation2, imageInput2);
+
+setupForClick(file1, imageInput1, preview1, wordsInside1, cancellation1);
+setupForClick(file2, imageInput2, preview2, wordsInside2, cancellation2);
 
 let changeImage;
 let referenceImageFile;
@@ -278,9 +291,6 @@ function previewImages(element, arr1, arr2, preview, wordsInside){
                 preview.style.backgroundImage = `url(${arr1[i]})`;
                 preview.classList.add('showImage');
                 wordsInside.innerHTML = 'PREVIEW';
-                element.style.pointerEvents = 'none';
-                
-
         }
         if (element == file1){
             referenceImageFile = arr1[i];
@@ -292,14 +302,56 @@ function previewImages(element, arr1, arr2, preview, wordsInside){
 
 }
 
+// erase preview images
+function removeToOrginalInputState(cancel, element, wordsInside, arr1, arr2, preview, file){
+
+    cancel.classList.remove('cancelButtonActive');
+    cancel.classList.add('cancelButtonInactive');
+    preview.style.backgroundImage = 'none';
+    preview.classList.remove('showImage');
+    wordsInside.innerHTML = 'Click or Drag an image file';
+    file.value = '';
+
+    for (let i = 0; i < arr1.length; i++){
+        if(element == arr1[i]){
+            arr1.splice(i, 1);
+            arr2.splice(i, 1);
+            console.log(arr1);
+            break;
+        }
+    }
+
+}
+
+cancellation1.addEventListener('click', () => {
+    removeToOrginalInputState(cancellation1, file1, wordsInside1, backgroundElement, backgroundURL, preview1, imageInput1);
+});
+
+cancellation2.addEventListener('click', () => {
+    removeToOrginalInputState(cancellation2, file2, wordsInside2, backgroundElement, backgroundURL, preview2, imageInput2);
+});
+
+
+
+
+
+
+
+
+
+
+
 const startImages = document.getElementById("startImages");
 
 startImages.addEventListener('click', startImageChange);
 
 function startImageChange(){
+    
+    console.log('hello');
     canvas.style.display = 'inline-block';
     referenceCanvas.style.display = 'inline-block';
     runImage();
     fileOpener.style.display = 'none';
     start = true;
+    console.log('hello');
 }

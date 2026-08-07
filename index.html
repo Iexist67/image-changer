@@ -14,12 +14,13 @@
         
         <div id="fileOpener" style="display:none">
             <div id="file1">
-                <button id="cancel1"> X </button>
+                <button id="cancel1" class="cancelButtonInactive"> X </button>
                 <p id="preview1"></p>
                 <span id="wordsInside1">Click or Drag an image file</span>
                 <input type="file" id="imageInput1" accept="image/*" hidden>
             </div>
             <div id="file2">
+                <button id="cancel2" class="cancelButtonInactive"> X </button>
                 <p id="preview2"></p>
                 <span id="wordsInside2">Click or Drag an image file</span>
                 <input type="file" id="imageInput2" accept="image/*" hidden>
@@ -27,11 +28,16 @@
         </div>
 
     <div id="controlPanel">
-        <button id="openFileDropper"> Click Me </button>
+        <button id="openFileDropper"> Start Process </button>
 
         <button id="downloadButton">Download Image</button>
 
-        <button id="startImages"> click me! </button>
+        <button id="startImages"> Start Load Process </button>
+        
+        <button id="runAnimation"> Run Animation </button>
+
+        <p id="controlPanelTitle"> Control Panel </p>
+
     </div>
 
 

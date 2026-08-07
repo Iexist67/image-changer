@@ -53,6 +53,7 @@
             overflow:hidden;
             z-index:101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
+            font-size: 25vw;
         }
 
         #file2{
@@ -67,12 +68,12 @@
             corner-shape: squircle;
             content: '';
             overflow:hidden;
+            z-index: 101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
+            
+            font-size: 25vw;
         }
 
-        #downloadButton{
-            display:none;
-        }
 
         .pulse{
             animation: pulsify 2s linear infinite;
@@ -121,13 +122,107 @@
             }
         }
 
-        #startImages{
-            position:fixed;
+
+        #preview1{
+            position:absolute;
+            pointer-events:none;
             top:50%;
             left:50%;
             transform:translate(-50%, -50%);
+            width:100%;
+            height:100%;
+            margin: 0;
+
+        }
+        #preview2{
+            position:absolute;
+            pointer-events:none;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height:100%;
+            margin:0;
+
+        }
+
+        #cancel1{
+            background:none;
+            color:red;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            height:100%;
+            width:100%;
+            z-index: 9999;
+            margin: 0;
+
+        }
+        #cancel2{
+            background:none;
+            color:red;
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%, -50%);
+            height:100%;
+            width:100%;
             z-index:9999;
-            display:none;
+            margin:0;
+
+
+        }
+
+        .cancelButtonInactive{
+            font-size: 1em;
+            opacity: 0;
+            pointer-events:none;
+        }
+        .cancelButtonActive{
+            font-size: 1em;
+            pointer-events: auto;
+            opacity: 0;
+            transition: 1s;
+        }
+        .cancelButtonActive:hover{
+            font-size: 1em;
+            opacity:1;
+            transition:1s;
+        }
+
+        
+        #startImages{
+            position:absolute;
+            top:50%;
+            left:40%;
+            transform:translate(-50%, -50%);
+            z-index:999999;
+        }
+
+         #downloadButton{
+            position:absolute;
+            top:50%;
+            left:80%;
+            transform:translate(-50%, -50%);
+            z-index: 99999;
+        }
+
+        #openFileDropper{
+            position:absolute;
+            top:50%;
+            left:20%;
+            transform: translate(-50%, -50%);
+            z-index: 99999;
+        }
+
+        #runAnimation{
+            position:absolute;
+            top:50%;
+            left: 60%;
+            transform:translate(-50%, -50%);
+            z-index: 9999;
+
         }
 
         #controlPanel{
@@ -140,27 +235,19 @@
             margin:0;
             border-radius: 15px 15px 0px 0px;
             background-color:#333333;
-            
-
+            z-index: 200;
+        
         }
 
-        #preview1{
-            position:absolute;
-            pointer-events:none;
-            top:50%;
+        #controlPanelTitle{
+            position: absolute;
             left:50%;
+            top: -5%;
             transform:translate(-50%, -50%);
-            width:100%;
-            height:100%;
-
+            height: 10%;
+            width:25%;
+            background-color: #333333;
+            border-radius: 15px 15px 0px 0px;
+            color:white;
         }
-        #preview2{
-            position:absolute;
-            pointer-events:none;
-            top:50%;
-            left:50%;
-            transform:translate(-50%, -50%);
-            width:100%;
-            height:100%;
-
-        }
+        
