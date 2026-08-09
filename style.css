@@ -195,34 +195,83 @@
         #startImages{
             position:absolute;
             top:50%;
-            left:40%;
+            left: 30%;
             transform:translate(-50%, -50%);
-            z-index:999999;
+            z-index: 300;
+            width: 20%;
+            margin:0;
+            height:100%;
+            background:none;
+            color:white;
+            border: solid;
+            border-color:white;
+            border-width: 0px 1px 0px 1px;
         }
 
          #downloadButton{
             position:absolute;
             top:50%;
-            left:80%;
+            left: 70%;
             transform:translate(-50%, -50%);
-            z-index: 99999;
+            z-index: 300;
+            width: 20%;
+            margin:0;
+            height:100%;
+            background:none;
+            color:white;
+            border: solid;
+            border-color:white;
+            border-width: 0px 1px 0px 1px;
         }
 
         #openFileDropper{
             position:absolute;
             top:50%;
-            left:20%;
+            left: 10%;
             transform: translate(-50%, -50%);
-            z-index: 99999;
+            z-index: 300;
+            width: 20%;
+            margin:0;
+            height:100%;
+            border-radius:15px 0px 0px 0px;
+            background:none;
+            color:white;
+            border: solid;
+            border-color:white;
+            border-width: 0px 1px 0px 1px;
         }
 
         #runAnimation{
             position:absolute;
             top:50%;
-            left: 60%;
+            left: 50%;
             transform:translate(-50%, -50%);
-            z-index: 9999;
+            z-index: 300;
+            width:20%;
+            height:100%;
+            background:none;
+            margin:0;
+            color:white;
+            border: solid;
+            border-color:white;
+            border-width: 0px 1px 0px 1px;
+        }
 
+        #restart{
+            position:absolute;
+            top:50%;
+            left: 90%;
+            transform:translate(-50%, -50%);
+            z-index: 300;
+            width: 20%;
+            margin:0;
+            height:100%;
+            border-radius: 0px 15px 0px 0px;
+            background:none;
+            color:white;
+            border: solid;
+            border-color:white;
+            border-width: 0px 1px 0px 1px;
         }
 
         #controlPanel{
@@ -236,18 +285,79 @@
             border-radius: 15px 15px 0px 0px;
             background-color:#333333;
             z-index: 200;
-        
+            padding:0;
         }
 
         #controlPanelTitle{
             position: absolute;
             left:50%;
-            top: -5%;
+            top: -15%;
             transform:translate(-50%, -50%);
-            height: 10%;
+            height: 25%;
             width:25%;
             background-color: #333333;
             border-radius: 15px 15px 0px 0px;
             color:white;
+            text-align: center;
+
+        }
+
+        #noClick1{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height: 100%;
+            z-index:400;
+            border-radius: 15px 0px 0px 0px;
         }
         
+        #noClick2{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height: 100%;
+            z-index:400;
+        }
+
+        #noClick3{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height: 100%;
+            z-index:400;
+        }
+        #noClick4{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height: 100%;
+            z-index:400;
+        }
+        #noClick5{
+            position:absolute;
+            top: 50%;
+            left: 50%;
+            transform:translate(-50%, -50%);
+            width:100%;
+            height: 100%;
+            z-index:400;
+            border-radius: 0px 15px 0px 0px;
+        }
+
+        .clicked{
+            background-color: black;
+            opacity: 0.4;
+        }
+        .noClicked{
+            z-index: 200;
+            background-color:none;
+            opacity: 0;
+        }

@@ -34,6 +34,8 @@ function firstCanvas(){
 const runAnimation = document.getElementById("runAnimation");
 runAnimation.addEventListener('click', () => {
     pixelObjectArray = changeImageAndDisplay(pixelObjectArray, ctx, referenceImageArray);
+
+    switchStates(noClick3, noClick4, runAnimation, downloadButton);
 });
 
 // change the image and display it
@@ -48,11 +50,12 @@ function changeImageAndDisplay(arr, ctx, arr2){
 }
 
 const referenceCanvas = document.getElementById("reference");
+let ctxReference;
  let referenceImageArray = [];
 // second canvas
 function runImage(){
 
-    const ctxReference = referenceCanvas.getContext('2d', {willReadFrequently : true});
+    ctxReference = referenceCanvas.getContext('2d', {willReadFrequently : true});
 
     const referenceImage = new Image();
 
@@ -65,10 +68,10 @@ function runImage(){
         const viewPortHeight = window.innerHeight * 0.40;
         const viewPortWidth = window.innerWidth * 0.40;
 
-        referenceCanvas.width = referenceImage.width * 1.5;
-        referenceCanvas.height = referenceImage.height * 1.5;
-
         const ratio = referenceCanvas.width / referenceCanvas.height;
+
+        referenceCanvas.width = viewPortWidth;
+        referenceCanvas.height = viewPortHeight;
 
         if (referenceCanvas.width > viewPortWidth){
             referenceCanvas.width = viewPortWidth;
@@ -138,14 +141,16 @@ function createSquares(arr, ctx){
 }
 
 // download the new image
-document.getElementById('downloadButton').addEventListener('click', downloadImage);
+const downloadButton = document.getElementById('downloadButton')
+
+downloadButton.addEventListener('click', downloadImage);
 
 function downloadImage(){
-    const pngUrl = canvas.toDataURL("image/png");
     const link = document.createElement('a');
-    link.download = pngUrl;
+    link.download = "image.png";
     link.href = canvas.toDataURL();
     link.click();
+    switchStates(noClick4, noClick5, downloadButton, restartButton);
 }
 
 let start = false;
@@ -174,12 +179,13 @@ requestAnimationFrame(animateSquares);
 const buttonForFileDropper = document.getElementById("openFileDropper");
 const fileOpener = document.getElementById("fileOpener");
 
-buttonForFileDropper.addEventListener("click", displayFileDropper);
+buttonForFileDropper.addEventListener('click', displayFileDropper);
 
 function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
-    buttonForFileDropper.style.pointerEvents = 'none';
+
+    switchStates(noClick1, noClick2, buttonForFileDropper, startImages);
 
 }
 
@@ -274,6 +280,8 @@ const wordsInside2 = document.getElementById("wordsInside2");
 const cancellation1 = document.getElementById("cancel1");
 const cancellation2 = document.getElementById("cancel2");
 
+const restartButton = document.getElementById('restart');
+
 
 setupDropzone(file1, preview1, wordsInside1, cancellation1, imageInput1);
 setupDropzone(file2, preview2, wordsInside2, cancellation2, imageInput2);
@@ -333,14 +341,7 @@ cancellation2.addEventListener('click', () => {
 
 
 
-
-
-
-
-
-
-
-
+// starting to load images
 const startImages = document.getElementById("startImages");
 
 startImages.addEventListener('click', startImageChange);
@@ -354,4 +355,76 @@ function startImageChange(){
     fileOpener.style.display = 'none';
     start = true;
     console.log('hello');
+
+    switchStates(noClick2, noClick3, startImages, runAnimation);    
+    
+}
+
+
+const noClick1 = document.getElementById("noClick1");
+const noClick2 = document.getElementById("noClick2");
+const noClick3 = document.getElementById("noClick3");
+const noClick4 = document.getElementById("noClick4");
+const noClick5 = document.getElementById("noClick5");
+
+
+// start button config
+runAnimation.disabled = true;
+downloadButton.disabled = true;
+startImages.disabled = true;
+restartButton.disabled = true;
+
+
+//switching between buttons that can be clicked and not clicked
+function switchStates(yesClick, noClick, buttonNoClick, buttonYesClick){
+
+    buttonNoClick.disabled = true;
+    buttonYesClick.disabled = false;
+
+    yesClick.classList.remove('noClicked');
+    yesClick.classList.add('clicked');
+
+    noClick.classList.remove('clicked');
+    noClick.classList.add('noClicked');
+
+}
+
+
+// restart function and button definition
+
+restartButton.addEventListener('click', restartProgram);
+
+function restartProgram(){
+    console.log('restarting ...');
+
+    switchStates(noClick5, noClick1, restartButton, buttonForFileDropper);
+
+    canvas.style.display = 'none';
+    referenceCanvas.style.display = 'none';
+
+    backgroundURL = [];
+    backgroundElement = [];
+    pixelObjectArray = [];
+    referenceImageArray = [];
+    start = false;
+
+    imageInput1.value = '';
+    imageInput2.value = '';
+    changeImage = undefined;
+    referenceImageFile = undefined;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctxReference.clearRect(0, 0, referenceCanvas.width, referenceCanvas.height);
+
+    preview1.style.backgroundImage = 'none';
+    preview1.classList.remove('showImage');
+    wordsInside1.innerHTML = 'Click or Drag an image file';
+    cancellation1.classList.remove('cancelButtonActive');
+    cancellation1.classList.add('cancelButtonInactive');
+
+    preview2.style.backgroundImage = 'none';
+    preview2.classList.remove('showImage');
+    wordsInside2.innerHTML = 'Click or Drag an image file';
+    cancellation2.classList.remove('cancelButtonActive');
+    cancellation2.classList.add('cancelButtonInactive');
 }

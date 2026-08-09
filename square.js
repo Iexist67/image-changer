@@ -21,8 +21,8 @@ export default class square{
     }
 
     calculateDistance(){
-        this.changeX = (this.newX - this.x) / 250;
-        this.changeY = (this.newY - this.y) / 250;
+        this.changeX = (this.newX - this.x) / 100;
+        this.changeY = (this.newY - this.y) / 100;
     }
     changeXY(){
         this.x += this.changeX;
