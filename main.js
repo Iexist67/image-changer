@@ -478,5 +478,44 @@ function restartProgram(){
 
     count = -50;
     loadBarGreen.style.left = '-50%';
-    animate = '';
 }
+
+const nameInput = document.getElementById('name');
+nameInput.focus();
+
+
+const name = document.getElementById('name');
+const welcomeTitle = document.getElementById('welcomeTitle');
+const startingScreen = document.getElementById("startingScreen");
+const choices = document.getElementById('choices');
+const work = document.getElementById("work");
+const anotherPage = document.getElementById("anotherPage");
+const mainContainer = document.getElementById("mainContainer");
+
+mainContainer.style.display = 'none';
+mainContainer.classList.toggle('move');
+
+document.addEventListener('keydown', function(e){
+
+    if(e.key === 'Enter'){
+        e.preventDefault();
+        welcomeTitle.innerHTML = 'Welcome, ' + name.value;
+        welcomeTitle.style.width = '70%';
+        welcomeTitle.style.left = '50%';
+        welcomeTitle.style.top = '15%';
+        welcomeTitle.style.textAlign = 'center';
+        welcomeTitle.style.transform = 'translate(-50%, -50%)'; // center both axes
+        name.style.display = 'none';
+        choices.style.display = 'inline-block';
+    }
+
+});
+
+work.addEventListener('click', () => {
+    mainContainer.style.display = 'inline-block';
+    setTimeout(() => {
+        mainContainer.classList.toggle('move');
+        choices.style.display = 'none';
+    }, 100);
+
+})

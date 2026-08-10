@@ -437,9 +437,106 @@
             width: 100%;
             position: fixed;
             top: 0;
-            left: 0; /* changed from left:100% */
             padding: 0;
             margin: 0;
-            border: 2px solid black;
-            transform: translateX(100%); /* pushes it off-screen to the right */
+            transition: 1s;
+        }
+
+        #startingScreen{
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            font-size: 5vw;
+        }
+        #welcomeTitle{
+            left: 28%;
+            top: 50%;
+            width: 20%;
+            text-align: right;
+            padding: 0;
+            margin: 0;
+            font-size: 1em;
+            position: absolute;
+            transform: translateY(-50%);
+            color: white;
+        }
+        #name{
+
+            top: 50%;
+            left: 50%;
+            text-align: left;
+            padding: 0;
+            width: 30%;
+            margin: 0;
+            font-size: 1em;
+            position: absolute;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            border-bottom: 0.05em solid #333333;
+            caret-color:black;
+            color:white;
+        }
+        #name::placeholder{
+            color: #333333;
+            opacity: 0.2;
+        }
+
+        #choices{
+
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 25%;
+            width: 60%;
+            background-color: #333333;
+            border-radius: 35px;
+            font-size: 2em;
+
+        }
+
+        #work{
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            height: 50%;
+            width: 35%;
+            border-radius: 35px;
+            border: none;
+            background-color: #D8D1C8;
+            font-size: 1em;
+
+        }
+
+        #anotherPage{
+            position: absolute;
+            top: 50%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            height: 50%;
+            width: 35%;
+            border-radius: 35px;
+            border:none;
+            background-color:#D8D1C8;
+            font-size: 1em;
+            
+        }
+
+        #goAway{
+            position:absolute;
+            color:red;
+            border:none;
+            background-color: #333333;
+            top: -15%;
+            left: 95%;
+            border-radius: 50%;
+            z-index: 500;
+        }
+
+        .move{
+            transform: translateX(100%);
         }
