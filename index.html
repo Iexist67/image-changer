@@ -3,44 +3,62 @@
 
     <head>
         <link rel='stylesheet' href='style.css' />
+        <title> Image Changer </title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+        <link rel="manifest" href="/favicon_io/site.webmanifest">
     </head>
     <body>
 
-        <div id="canvasContainer">
-            <canvas id="imageArea"></canvas>
-            <canvas id="reference"> </canvas>
+
+
+        <div id="startingScreen">
+
+            <p id="welcomeTitle"> Welcome,</p>
+            <input type="text" placeholder="Please enter your name" />
+
         </div>
 
-        
-        <div id="fileOpener" style="display:none">
-            <div id="file1">
-                <button id="cancel1" class="cancelButtonInactive"> X </button>
-                <p id="preview1"></p>
-                <span id="wordsInside1">Click or Drag an image file</span>
-                <input type="file" id="imageInput1" accept="image/*" hidden>
+
+        <div id="mainContainer">
+            <div id="canvasContainer">
+                <canvas id="imageArea"></canvas>
+                <canvas id="reference"> </canvas>
             </div>
-            <div id="file2">
-                <button id="cancel2" class="cancelButtonInactive"> X </button>
-                <p id="preview2"></p>
-                <span id="wordsInside2">Click or Drag an image file</span>
-                <input type="file" id="imageInput2" accept="image/*" hidden>
+
+            
+            <div id="fileOpener" style="display:none">
+                <div id="file1">
+                    <button id="cancel1" class="cancelButtonInactive"> X </button>
+                    <p id="preview1"></p>
+                    <span id="wordsInside1">Click or Drag an image file</span>
+                    <input type="file" id="imageInput1" accept="image/*" hidden>
+                </div>
+                <div id="file2">
+                    <button id="cancel2" class="cancelButtonInactive"> X </button>
+                    <p id="preview2"></p>
+                    <span id="wordsInside2">Click or Drag an image file</span>
+                    <input type="file" id="imageInput2" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div id="controlPanel">
+                <button id="openFileDropper"> Program Start <span id="noClick1" class="noClicked"></span></button>
+
+                <button id="downloadButton">Download Image <span id="noClick4" class="clicked"></span></button>
+
+                <button id="startImages" disabled> Start Load Process <span id="noClick2" class="clicked"></span> <span id="show1" class="red"></span> <span id="show2" class="red"></span></button>
+                
+                <button id="runAnimation"> Run Animation <span id="noClick3" class="clicked"></span> <span id="loadBar"><span id="loadBarGreen"></span></span></button>
+
+                <button id="restart"> Program Finish <span id="noClick5" class="clicked"></span></button>
+
+
+                <p id="controlPanelTitle"> Control Panel </p>
+
             </div>
         </div>
-
-    <div id="controlPanel">
-        <button id="openFileDropper"> Start Process <span id="noClick1" class="noClicked"></span></button>
-
-        <button id="downloadButton">Download Image <span id="noClick4" class="clicked"></span></button>
-
-        <button id="startImages"> Start Load Process <span id="noClick2" class="clicked"></span> </button>
-        
-        <button id="runAnimation"> Run Animation <span id="noClick3" class="clicked"></span></button>
-
-        <button id="restart"> Program Finish <span id="noClick5" class="clicked"></span></button>
-
-        <p id="controlPanelTitle"> Control Panel </p>
-
-    </div>
 
 
     <script src="square.js" type="module"></script>

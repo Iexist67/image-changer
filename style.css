@@ -255,6 +255,7 @@
             border: solid;
             border-color:white;
             border-width: 0px 1px 0px 1px;
+            padding: 0;
         }
 
         #restart{
@@ -320,7 +321,7 @@
             transform:translate(-50%, -50%);
             width:100%;
             height: 100%;
-            z-index:400;
+            z-index:500;
         }
 
         #noClick3{
@@ -355,9 +356,90 @@
         .clicked{
             background-color: black;
             opacity: 0.4;
+            cursor: default;
         }
         .noClicked{
             z-index: 200;
             background-color:none;
             opacity: 0;
+            cursor: pointer;
+        }
+
+        #show1{
+            position:absolute;
+            content: '';
+            z-index:400;
+            left: 90%;
+            top: 20%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        #show2{
+            position:absolute;
+            content: '';
+            z-index:400;
+            left: 80%;
+            top: 20%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .red{
+            background-color: red;
+        }
+        .green{
+            background-color: green;
+        }
+
+        #loadBar{
+            position:absolute;
+
+            top: 20%;
+            left: 50%;
+
+            transform:translate(-50%, -50%);
+
+            height: 10%;
+            width: 75%;
+
+            border-radius: 15px;
+
+            background-color: gray;
+
+            z-index: 300;
+
+            overflow:hidden;
+
+        }
+
+        #loadBarGreen{
+            position:absolute;
+            content: '';
+            
+            height: 100%;
+            width: 100%;
+
+            top:50%;
+            left: -50%;
+
+            border-radius: 15px;
+
+            transform:translate(-50%, -50%);
+            background-color: green;
+
+
+        }
+
+        #mainContainer{
+            height: 100%;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0; /* changed from left:100% */
+            padding: 0;
+            margin: 0;
+            border: 2px solid black;
+            transform: translateX(100%); /* pushes it off-screen to the right */
         }

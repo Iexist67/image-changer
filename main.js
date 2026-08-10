@@ -34,8 +34,9 @@ function firstCanvas(){
 const runAnimation = document.getElementById("runAnimation");
 runAnimation.addEventListener('click', () => {
     pixelObjectArray = changeImageAndDisplay(pixelObjectArray, ctx, referenceImageArray);
-
-    switchStates(noClick3, noClick4, runAnimation, downloadButton);
+    runAnimation.disabled = true;
+    noClick3.style.cursor = 'default';
+    requestAnimationFrame(animateSquares);
 });
 
 // change the image and display it
@@ -154,8 +155,12 @@ function downloadImage(){
 }
 
 let start = false;
+const loadBarGreen = document.getElementById("loadBarGreen");
+
+let count = -50;
 
 function animateSquares(time){
+
 
     if (start){
         for (let i = 0; i < pixelObjectArray.length; i++){
@@ -164,14 +169,22 @@ function animateSquares(time){
                 sq.changeXY();
             }
         }
+       
     }
     createSquares(pixelObjectArray, ctx);
-
-    requestAnimationFrame(animateSquares);
+    if (start){
+         if(count != 50 && count <= 50){
+            count++;
+            loadBarGreen.style.left = count + '%';
+            requestAnimationFrame(animateSquares);
+        } else if(count == 50){
+            switchStates(noClick3, noClick4, runAnimation, downloadButton);
+            count++;
+        }
+    }
 
 }
 
-requestAnimationFrame(animateSquares);
 
 
 // initilizing file dropper
@@ -186,6 +199,14 @@ function displayFileDropper(){
     fileOpener.style.display = "inline-block";
 
     switchStates(noClick1, noClick2, buttonForFileDropper, startImages);
+    startImages.disabled = true;
+    buttonForFileDropper.disabled = true;
+
+    noClick1.classList.remove('noClicked');
+    noClick1.classList.add('clicked');
+
+    noClick2.classList.remove('clicked');
+    noClick2.classList.add('noClicked');
 
 }
 
@@ -281,7 +302,8 @@ const cancellation1 = document.getElementById("cancel1");
 const cancellation2 = document.getElementById("cancel2");
 
 const restartButton = document.getElementById('restart');
-
+const show1 = document.getElementById("show1");
+const show2 = document.getElementById('show2');
 
 setupDropzone(file1, preview1, wordsInside1, cancellation1, imageInput1);
 setupDropzone(file2, preview2, wordsInside2, cancellation2, imageInput2);
@@ -296,16 +318,26 @@ function previewImages(element, arr1, arr2, preview, wordsInside){
 
     for (let i = 0; i < arr1.length; i++){
         if (element == arr2[i]){
-                preview.style.backgroundImage = `url(${arr1[i]})`;
-                preview.classList.add('showImage');
-                wordsInside.innerHTML = 'PREVIEW';
+            preview.style.backgroundImage = `url(${arr1[i]})`;
+            preview.classList.add('showImage');
+            wordsInside.innerHTML = 'PREVIEW';
+            
         }
         if (element == file1){
             referenceImageFile = arr1[i];
+            show1.classList.remove('red');
+            show1.classList.add('green');
         }
         if (element == file2){
             changeImage = arr1[i];
+            show2.classList.remove('red');
+            show2.classList.add('green');
         }
+        
+    }
+
+    if (arr1.length == 2){
+        startImages.disabled = false;
     }
 
 }
@@ -319,6 +351,7 @@ function removeToOrginalInputState(cancel, element, wordsInside, arr1, arr2, pre
     preview.classList.remove('showImage');
     wordsInside.innerHTML = 'Click or Drag an image file';
     file.value = '';
+    startImages.disabled = true;
 
     for (let i = 0; i < arr1.length; i++){
         if(element == arr1[i]){
@@ -327,6 +360,14 @@ function removeToOrginalInputState(cancel, element, wordsInside, arr1, arr2, pre
             console.log(arr1);
             break;
         }
+    }
+     if (element == file1){
+        show1.classList.remove('green');
+        show1.classList.add('red');
+    }
+    if (element == file2){
+        show2.classList.remove('green');
+        show2.classList.add('red');
     }
 
 }
@@ -427,4 +468,15 @@ function restartProgram(){
     wordsInside2.innerHTML = 'Click or Drag an image file';
     cancellation2.classList.remove('cancelButtonActive');
     cancellation2.classList.add('cancelButtonInactive');
+
+    startImages.disabled = true;
+
+    show2.classList.remove('green');
+    show2.classList.add('red');
+    show1.classList.remove('green');
+    show1.classList.add('red');
+
+    count = -50;
+    loadBarGreen.style.left = '-50%';
+    animate = '';
 }
