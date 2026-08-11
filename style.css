@@ -549,3 +549,36 @@
         .moveOut{
             transform: translateX(-150%);
         }
+
+        #howItWork{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            border:none;
+            background: none;
+            font-size: 20vh;
+        }
+        #justabackground{
+            position: absolute;
+            top: 10%;
+            left: 10%;
+
+            width: 80%;
+            height: 80%;
+
+            background-color: #333333;
+
+            border:none;
+            padding: 35px;
+
+            overflow: auto;
+            border-radius: 35px;
+        }
+
+        #text{
+            color: white;
+            font-size: 0.2em;
+        
+        }

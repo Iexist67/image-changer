@@ -68,9 +68,17 @@
             </div>
         </div>
     
-    <div id="howItWork">
+    <div id="howItWork" hidden>
 
-        
+        <div id="justabackground">
+            <p id="text"> 
+                Two images are uploaded by the user — a source image, from which the colors are drawn, and a reference image, from which the target shape is derived. Both images are displayed on the screen, and the color of every single point in each image is read and recorded. Each point is then treated as its own small unit, for which its position and color are stored, and from which a brightness value is calculated using the formula 0.299 * red + 0.587 * green + 0.114 * blue, where red, green, and blue each represent how much of that color is present at that point. This particular formula is used instead of a simple average because it reflects how a human eye actually perceives light and dark — green is naturally seen as far brighter than red or blue at the same intensity, so it is weighted much more heavily in the calculation. Once every point in both images has been measured this way, the points from each image are ordered from darkest to lightest, producing a ranked list of colors from the source image and a ranked list of positions from the reference image.
+
+These two ranked lists are then matched up according to their shared order: the color that was ranked, say, the hundredth-darkest in the source image is reassigned to wherever the hundredth-darkest point was located in the reference image. In this way, the palette of colors from the source image is reshaped to follow the light-and-dark pattern of the reference image — the darkest areas of the reference are filled in with the darkest available source colors, and the lightest areas are filled in with the lightest. For each point, the distance it needs to travel from its starting position to its new position is calculated and broken into many small, even steps, so that the transformation can unfold gradually rather than happening all at once.
+
+This gradual transformation is then animated on screen, with every point being nudged a small amount toward its new position, frame by frame, until it settles into place. While this is happening, a loading bar fills up in step with the progress, giving the user a clear sense that the transformation is underway. Once every point has reached its destination, the image is left fully rearranged — still made up of the source image's original colors, but now shaped according to the reference image's pattern of light and dark — and the final result can then be saved as an image file to the user's device.
+            </p>
+        </div>
 
     </div>
 
