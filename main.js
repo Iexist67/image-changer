@@ -194,9 +194,16 @@ const fileOpener = document.getElementById("fileOpener");
 
 buttonForFileDropper.addEventListener('click', displayFileDropper);
 
+fileOpener.classList.toggle('move');
+fileOpener.style.display = 'none';
+
 function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
+
+    setTimeout(() => {
+        fileOpener.classList.toggle('move');
+    }, 100);
 
     switchStates(noClick1, noClick2, buttonForFileDropper, startImages);
     startImages.disabled = true;
@@ -400,7 +407,14 @@ function startImageChange(){
     canvas.style.display = 'inline-block';
     referenceCanvas.style.display = 'inline-block';
     runImage();
-    fileOpener.style.display = 'none';
+
+    fileOpener.classList.toggle('moveOut');
+    setTimeout(() => {
+        fileOpener.style.display = 'none';
+        fileOpener.classList.toggle('moveOut');
+        fileOpener.classList.toggle('move');
+    }, 1000);
+
     start = true;
     console.log('hello');
 
@@ -492,9 +506,6 @@ function restartProgram(){
         goAway.classList.toggle('moveOut');
     }, 100);
 }
-
-const nameInput = document.getElementById('name');
-nameInput.focus();
 
 
 const name = document.getElementById('name');
