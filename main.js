@@ -208,6 +208,13 @@ function displayFileDropper(){
     noClick2.classList.remove('clicked');
     noClick2.classList.add('noClicked');
 
+    
+    goAway.classList.toggle('moveOut');
+    goAway.disabled = true;
+    setTimeout(() => {
+     goAway.style.display = 'none';
+    }, 1000);
+
 }
 
 let backgroundURL = [];
@@ -478,6 +485,12 @@ function restartProgram(){
 
     count = -50;
     loadBarGreen.style.left = '-50%';
+
+    goAway.style.display = 'inline-block';
+    goAway.disabled = false;
+    setTimeout(() => {
+        goAway.classList.toggle('moveOut');
+    }, 100);
 }
 
 const nameInput = document.getElementById('name');
@@ -491,31 +504,65 @@ const choices = document.getElementById('choices');
 const work = document.getElementById("work");
 const anotherPage = document.getElementById("anotherPage");
 const mainContainer = document.getElementById("mainContainer");
+const goAway = document.getElementById("goAway");
+
+goAway.classList.toggle('moveOut');
+goAway.style.display = 'none';
 
 mainContainer.style.display = 'none';
 mainContainer.classList.toggle('move');
+choices.style.display = 'none';
+choices.classList.toggle('move');
 
 document.addEventListener('keydown', function(e){
 
     if(e.key === 'Enter'){
         e.preventDefault();
-        welcomeTitle.innerHTML = 'Welcome, ' + name.value;
-        welcomeTitle.style.width = '70%';
-        welcomeTitle.style.left = '50%';
-        welcomeTitle.style.top = '15%';
-        welcomeTitle.style.textAlign = 'center';
-        welcomeTitle.style.transform = 'translate(-50%, -50%)'; // center both axes
-        name.style.display = 'none';
         choices.style.display = 'inline-block';
+        setTimeout(() => {
+            startingScreen.classList.toggle('moveTitleScreen');
+            choices.classList.toggle('move');
+            welcomeTitle.innerHTML = 'Welcome, ' + name.value;
+            welcomeTitle.style.left = '15%';
+            welcomeTitle.style.width = '70%';
+            name.style.display = 'none';
+            name.disabled = true;
+            name.style.borderBottom = 'none';
+            name.style.color = 'white';
+        }, 100);
     }
 
 });
 
 work.addEventListener('click', () => {
     mainContainer.style.display = 'inline-block';
+    goAway.style.display = 'inline-block';
+    goAway.disabled = false;
     setTimeout(() => {
         mainContainer.classList.toggle('move');
-        choices.style.display = 'none';
+        goAway.classList.toggle('moveOut');
+        choices.classList.toggle('moveOut');
     }, 100);
+    setTimeout(() => {
+        choices.style.display = 'none';
+        choices.classList.toggle('move');
+        choices.classList.toggle('moveOut');
+    }, 1000);
 
 })
+
+goAway.addEventListener('click', () => {
+
+    mainContainer.classList.toggle('moveOut');
+    goAway.classList.toggle('moveOut');
+    choices.style.display = 'inline-block';
+    goAway.disabled = true;
+    setTimeout(() => {
+        goAway.style.display = 'none';
+        mainContainer.style.display = 'none';
+        choices.classList.toggle('move');
+        mainContainer.classList.toggle('moveOut');
+        mainContainer.classList.toggle('move');
+    }, 1000);
+
+});
