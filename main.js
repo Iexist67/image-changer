@@ -403,9 +403,7 @@ startImages.addEventListener('click', startImageChange);
 
 
 function startImageChange(){
-    
-    canvas.style.display = 'inline-block';
-    referenceCanvas.style.display = 'inline-block';
+
     runImage();
 
     fileOpener.classList.toggle('moveOut');
@@ -463,8 +461,6 @@ function restartProgram(){
 
     switchStates(noClick5, noClick1, restartButton, buttonForFileDropper);
 
-    canvas.style.display = 'none';
-    referenceCanvas.style.display = 'none';
 
     backgroundURL = [];
     backgroundElement = [];
