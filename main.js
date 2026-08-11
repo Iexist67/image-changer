@@ -401,15 +401,17 @@ const startImages = document.getElementById("startImages");
 
 startImages.addEventListener('click', startImageChange);
 
+
 function startImageChange(){
     
-    console.log('hello');
     canvas.style.display = 'inline-block';
     referenceCanvas.style.display = 'inline-block';
     runImage();
 
     fileOpener.classList.toggle('moveOut');
+    canvasContainer.style.display = 'inline-block';
     setTimeout(() => {
+        canvasContainer.classList.toggle('move');
         fileOpener.style.display = 'none';
         fileOpener.classList.toggle('moveOut');
         fileOpener.classList.toggle('move');
@@ -516,6 +518,10 @@ const work = document.getElementById("work");
 const anotherPage = document.getElementById("anotherPage");
 const mainContainer = document.getElementById("mainContainer");
 const goAway = document.getElementById("goAway");
+const canvasContainer = document.getElementById("canvasContainer");
+
+canvasContainer.style.dispaly = 'none';
+canvasContainer.classList.toggle('move');
 
 goAway.classList.toggle('moveOut');
 goAway.style.display = 'none';
