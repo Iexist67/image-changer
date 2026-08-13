@@ -222,9 +222,9 @@ function displayFileDropper(){
     
     fileOpener.style.display = 'inline-block';
 
-       void fileOpener.offsetWidth;
- 
-    fileOpener.classList.remove('move');
+    setTimeout(() => {
+        fileOpener.classList.remove('move');
+    }, 100);
 
     goAway.disabled = true;
     setTimeout(() => {
