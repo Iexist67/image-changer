@@ -9,7 +9,7 @@
             background: #D8D1C8;
         }
         #imageArea {
-            position:fixed;
+            position: absolute;
             background-color: #ffffff;
             border: 2px solid black;
             top:50%;
@@ -18,8 +18,18 @@
             display:none;
 
         }
+
+        #canvasContainer{
+            position: fixed;
+            top: 0%;
+            left: 0%;
+            width: 100%;
+            height: 100%;
+            transition: 1s;
+        }
+
         #reference {
-            position:fixed;
+            position:absolute;
             background-color: #ffffff;
             border: 2px solid black;
             top:50%;
@@ -54,6 +64,10 @@
             z-index:101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
             font-size: 25vw;
+            cursor:default;
+        }
+        #file1:hover{
+            cursor: pointer;
         }
 
         #file2{
@@ -70,8 +84,11 @@
             overflow:hidden;
             z-index: 101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
-            
+            cursor:default;
             font-size: 25vw;
+        }
+        #file2:hover{
+            cursor:pointer;
         }
 
 
@@ -292,7 +309,7 @@
         #controlPanelTitle{
             position: absolute;
             left:50%;
-            top: -15%;
+            top: -20%;
             transform:translate(-50%, -50%);
             height: 25%;
             width:25%;
@@ -429,6 +446,9 @@
             transform:translate(-50%, -50%);
             background-color: green;
 
+            
+            font-size: 1em;
+
 
         }
 
@@ -550,11 +570,43 @@
         .moveOut{
             transform: translateX(-150%);
         }
-    
-        #canvasContainer{
-            position: absolute;
+
+        #howItWork{
+            position: fixed;
             width: 100%;
             height: 100%;
-            transition: 1s;
-    
+            margin: 0;
+            padding: 0;
+            border:none;
+            background: none;
+            font-size: 20vh;
+        }
+        #justabackground{
+            position: absolute;
+            top: 10%;
+            left: 10%;
+
+            width: 80%;
+            height: 80%;
+
+            background-color: #333333;
+
+            border:none;
+            padding: 35px;
+
+            overflow: auto;
+            border-radius: 35px;
+        }
+
+        #text{
+            color: white;
+            font-size: 0.2em;
+        
+        }
+
+        button:hover{
+            cursor: pointer;
+        }
+        button{
+            cursor: default;
         }
