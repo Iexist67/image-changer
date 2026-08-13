@@ -205,6 +205,8 @@ function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
 
+    void fileOpener.offsetWidth;
+    
     setTimeout(() => {
         fileOpener.classList.toggle('move');
     }, 100);
