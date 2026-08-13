@@ -560,6 +560,7 @@
             transition: 1s;
         }
 
+        /* This is the move animation */
         .move{
             transform: translateX(150%);
         }

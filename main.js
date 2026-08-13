@@ -205,6 +205,10 @@ function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
 
+    setTimeout(() => {
+        fileOpener.classList.toggle('move');
+    }, 100);
+
     switchStates(noClick1, noClick2, buttonForFileDropper, startImages);
     startImages.disabled = true;
     buttonForFileDropper.disabled = true;
@@ -404,11 +408,9 @@ const startImages = document.getElementById("startImages");
 
 startImages.addEventListener('click', startImageChange);
 
+
 function startImageChange(){
-    
-    console.log('hello');
-    canvas.style.display = 'inline-block';
-    referenceCanvas.style.display = 'inline-block';
+
     runImage();
     start = true;
     console.log('hello');
@@ -516,9 +518,6 @@ function restartProgram(){
         ctxReference.clearRect(0, 0, referenceCanvas.width, referenceCanvas.height);
     }, 1000);
 }
-
-const nameInput = document.getElementById('name');
-nameInput.focus();
 
 
 const name = document.getElementById('name');
