@@ -202,11 +202,7 @@ fileOpener.classList.add('move');
 fileOpener.style.display = 'none';
 
 function displayFileDropper(){
-
-    fileOpener.style.display = "inline-block";
-
-    void fileOpener.offsetWidth;
-    
+   
     setTimeout(() => {
         fileOpener.classList.toggle('move');
     }, 100);
@@ -223,7 +219,11 @@ function displayFileDropper(){
 
     
     goAway.classList.add('moveOut');
+    
     fileOpener.style.display = 'inline-block';
+
+       void fileOpener.offsetWidth;
+ 
     fileOpener.classList.remove('move');
 
     goAway.disabled = true;
