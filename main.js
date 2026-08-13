@@ -157,6 +157,9 @@ function downloadImage(){
 let start = false;
 const loadBarGreen = document.getElementById("loadBarGreen");
 
+loadBarGreen.style.textAlign = 'right';
+loadBarGreen.innerHTML = '0%';
+
 let count = -50;
 
 function animateSquares(time){
@@ -176,6 +179,7 @@ function animateSquares(time){
          if(count != 50 && count <= 50){
             count++;
             loadBarGreen.style.left = count + '%';
+            loadBarGreen.innerHTML = (count + 50) + '%';
             requestAnimationFrame(animateSquares);
         } else if(count == 50){
             switchStates(noClick3, noClick4, runAnimation, downloadButton);
@@ -194,6 +198,9 @@ const fileOpener = document.getElementById("fileOpener");
 
 buttonForFileDropper.addEventListener('click', displayFileDropper);
 
+fileOpener.classList.add('move');
+fileOpener.style.display = 'none';
+
 function displayFileDropper(){
 
     fileOpener.style.display = "inline-block";
@@ -209,7 +216,10 @@ function displayFileDropper(){
     noClick2.classList.add('noClicked');
 
     
-    goAway.classList.toggle('moveOut');
+    goAway.classList.add('moveOut');
+    fileOpener.style.display = 'inline-block';
+    fileOpener.classList.remove('move');
+
     goAway.disabled = true;
     setTimeout(() => {
      goAway.style.display = 'none';
@@ -400,11 +410,21 @@ function startImageChange(){
     canvas.style.display = 'inline-block';
     referenceCanvas.style.display = 'inline-block';
     runImage();
-    fileOpener.style.display = 'none';
     start = true;
     console.log('hello');
 
     switchStates(noClick2, noClick3, startImages, runAnimation);    
+    
+    canvasContainer.style.display = 'inline-block';
+    fileOpener.classList.add('moveOut');
+    setTimeout(() => {
+        canvasContainer.classList.remove('move');
+    }, 100);
+    setTimeout(() => {
+        fileOpener.style.display = 'none';
+        fileOpener.classList.remove('moveOut');
+        fileOpener.classList.add('move');
+    }, 1000);
     
 }
 
@@ -447,9 +467,6 @@ function restartProgram(){
 
     switchStates(noClick5, noClick1, restartButton, buttonForFileDropper);
 
-    canvas.style.display = 'none';
-    referenceCanvas.style.display = 'none';
-
     backgroundURL = [];
     backgroundElement = [];
     pixelObjectArray = [];
@@ -460,9 +477,6 @@ function restartProgram(){
     imageInput2.value = '';
     changeImage = undefined;
     referenceImageFile = undefined;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctxReference.clearRect(0, 0, referenceCanvas.width, referenceCanvas.height);
 
     preview1.style.backgroundImage = 'none';
     preview1.classList.remove('showImage');
@@ -486,11 +500,21 @@ function restartProgram(){
     count = -50;
     loadBarGreen.style.left = '-50%';
 
+    canvasContainer.classList.add('moveOut');
     goAway.style.display = 'inline-block';
     goAway.disabled = false;
     setTimeout(() => {
-        goAway.classList.toggle('moveOut');
+        goAway.classList.remove('moveOut');
     }, 100);
+
+    setTimeout(() => {
+        canvasContainer.style.display = 'none';
+        canvasContainer.classList.remove('moveOut');
+        canvasContainer.classList.add('move');
+        
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctxReference.clearRect(0, 0, referenceCanvas.width, referenceCanvas.height);
+    }, 1000);
 }
 
 const nameInput = document.getElementById('name');
@@ -505,23 +529,28 @@ const work = document.getElementById("work");
 const anotherPage = document.getElementById("anotherPage");
 const mainContainer = document.getElementById("mainContainer");
 const goAway = document.getElementById("goAway");
+const canvasContainer = document.getElementById("canvasContainer");
 
-goAway.classList.toggle('moveOut');
+canvasContainer.classList.add('move');
+canvasContainer.style.display = 'none';
+
+goAway.classList.add('moveOut');
 goAway.style.display = 'none';
 
 mainContainer.style.display = 'none';
-mainContainer.classList.toggle('move');
+mainContainer.classList.add('move');
 choices.style.display = 'none';
-choices.classList.toggle('move');
+choices.classList.add('move');
 
-document.addEventListener('keydown', function(e){
 
+
+function handleEnterKey(e){
     if(e.key === 'Enter'){
         e.preventDefault();
         choices.style.display = 'inline-block';
         setTimeout(() => {
-            startingScreen.classList.toggle('moveTitleScreen');
-            choices.classList.toggle('move');
+            startingScreen.classList.add('moveTitleScreen');
+            choices.classList.remove('move');
             welcomeTitle.innerHTML = 'Welcome, ' + name.value;
             welcomeTitle.style.left = '15%';
             welcomeTitle.style.width = '70%';
@@ -530,39 +559,61 @@ document.addEventListener('keydown', function(e){
             name.style.borderBottom = 'none';
             name.style.color = 'white';
         }, 100);
-    }
 
-});
+        document.removeEventListener('keydown', handleEnterKey); // never fires again
+    }
+}
+document.addEventListener('keydown', handleEnterKey);
+
+let isTransitioningToWork = false;
 
 work.addEventListener('click', () => {
+    if (isTransitioningToWork) return;
+    isTransitioningToWork = true;
+
+    work.disabled = true; // disable the real button, not the div
     mainContainer.style.display = 'inline-block';
     goAway.style.display = 'inline-block';
     goAway.disabled = false;
+
     setTimeout(() => {
-        mainContainer.classList.toggle('move');
-        goAway.classList.toggle('moveOut');
-        choices.classList.toggle('moveOut');
+        mainContainer.classList.remove('move');
+        goAway.classList.remove('moveOut');
+        choices.classList.add('moveOut');
     }, 100);
+
     setTimeout(() => {
         choices.style.display = 'none';
-        choices.classList.toggle('move');
-        choices.classList.toggle('moveOut');
+        choices.classList.add('move');
+        choices.classList.remove('moveOut');
+        isTransitioningToWork = false;
     }, 1000);
+});
 
-})
+let isAnimating = false;
 
 goAway.addEventListener('click', () => {
+    if (isAnimating) return; // ignore clicks while an animation cycle is in progress
+    isAnimating = true;
 
-    mainContainer.classList.toggle('moveOut');
-    goAway.classList.toggle('moveOut');
-    choices.style.display = 'inline-block';
     goAway.disabled = true;
+    mainContainer.classList.add('moveOut');
+    goAway.classList.add('moveOut');
+    choices.style.display = 'inline-block';
+
+    void choices.offsetWidth;
+    choices.classList.remove('move');
+
+    
+     isTransitioningToWork = false;
+
     setTimeout(() => {
         goAway.style.display = 'none';
         mainContainer.style.display = 'none';
-        choices.classList.toggle('move');
-        mainContainer.classList.toggle('moveOut');
-        mainContainer.classList.toggle('move');
+        mainContainer.classList.remove('moveOut');
+        mainContainer.classList.add('move');
+        work.disabled = false;
+        isAnimating = false; // unlock once fully done
     }, 1000);
 
 });
