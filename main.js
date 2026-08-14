@@ -409,6 +409,7 @@ const startImages = document.getElementById("startImages");
 
 startImages.addEventListener('click', startImageChange);
 
+
 function startImageChange(){
     canvas.style.display = 'inline-block'; 
     referenceCanvas.style.display = 'inline-block'; 
@@ -519,9 +520,6 @@ function restartProgram(){
         ctxReference.clearRect(0, 0, referenceCanvas.width, referenceCanvas.height);
     }, 1000);
 }
-
-const nameInput = document.getElementById('name');
-nameInput.focus();
 
 
 const name = document.getElementById('name');
