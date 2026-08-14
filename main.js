@@ -2,6 +2,11 @@
 
 import square from "./square.js";
 
+function nextPaint(callback){
+    requestAnimationFrame(() => {
+        requestAnimationFrame(callback);
+    });
+}
 
 let pixelObjectArray = [];
 
@@ -202,10 +207,13 @@ fileOpener.classList.add('move');
 fileOpener.style.display = 'none';
 
 function displayFileDropper(){
-   
-    setTimeout(() => {
-        fileOpener.classList.toggle('move');
-    }, 100);
+    fileOpener.style.display = "inline-block";
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => { // double rAF ensures the paint has actually happened
+            fileOpener.classList.remove('move');
+        });
+    });
 
     switchStates(noClick1, noClick2, buttonForFileDropper, startImages);
     startImages.disabled = true;
@@ -217,22 +225,13 @@ function displayFileDropper(){
     noClick2.classList.remove('clicked');
     noClick2.classList.add('noClicked');
 
-    
     goAway.classList.add('moveOut');
-    
-    fileOpener.style.display = 'inline-block';
-
-    setTimeout(() => {
-        fileOpener.classList.remove('move');
-    }, 100);
 
     goAway.disabled = true;
     setTimeout(() => {
-     goAway.style.display = 'none';
+        goAway.style.display = 'none';
     }, 1000);
-
 }
-
 let backgroundURL = [];
 let backgroundElement = [];
 
@@ -412,26 +411,26 @@ startImages.addEventListener('click', startImageChange);
 
 
 function startImageChange(){
-
+    canvas.style.display = 'inline-block'; 
+    referenceCanvas.style.display = 'inline-block'; 
     runImage();
     start = true;
-    console.log('hello');
 
     switchStates(noClick2, noClick3, startImages, runAnimation);    
     
     canvasContainer.style.display = 'inline-block';
     fileOpener.classList.add('moveOut');
-    setTimeout(() => {
+
+    nextPaint(() => {
         canvasContainer.classList.remove('move');
-    }, 100);
+    });
+
     setTimeout(() => {
         fileOpener.style.display = 'none';
         fileOpener.classList.remove('moveOut');
         fileOpener.classList.add('move');
     }, 1000);
-    
 }
-
 
 const noClick1 = document.getElementById("noClick1");
 const noClick2 = document.getElementById("noClick2");
@@ -507,9 +506,10 @@ function restartProgram(){
     canvasContainer.classList.add('moveOut');
     goAway.style.display = 'inline-block';
     goAway.disabled = false;
-    setTimeout(() => {
+
+    nextPaint(() => {
         goAway.classList.remove('moveOut');
-    }, 100);
+    });
 
     setTimeout(() => {
         canvasContainer.style.display = 'none';
@@ -549,7 +549,8 @@ function handleEnterKey(e){
     if(e.key === 'Enter'){
         e.preventDefault();
         choices.style.display = 'inline-block';
-        setTimeout(() => {
+
+        nextPaint(() => {
             startingScreen.classList.add('moveTitleScreen');
             choices.classList.remove('move');
             welcomeTitle.innerHTML = 'Welcome, ' + name.value;
@@ -559,9 +560,9 @@ function handleEnterKey(e){
             name.disabled = true;
             name.style.borderBottom = 'none';
             name.style.color = 'white';
-        }, 100);
+        });
 
-        document.removeEventListener('keydown', handleEnterKey); // never fires again
+        document.removeEventListener('keydown', handleEnterKey);
     }
 }
 document.addEventListener('keydown', handleEnterKey);
@@ -572,16 +573,16 @@ work.addEventListener('click', () => {
     if (isTransitioningToWork) return;
     isTransitioningToWork = true;
 
-    work.disabled = true; // disable the real button, not the div
+    work.disabled = true;
     mainContainer.style.display = 'inline-block';
     goAway.style.display = 'inline-block';
     goAway.disabled = false;
 
-    setTimeout(() => {
+    nextPaint(() => {
         mainContainer.classList.remove('move');
         goAway.classList.remove('moveOut');
-        choices.classList.add('moveOut');
-    }, 100);
+        choices.classList.add('moveOut'); // choices is already visible, but grouped here for one paint cycle
+    });
 
     setTimeout(() => {
         choices.style.display = 'none';
@@ -594,7 +595,7 @@ work.addEventListener('click', () => {
 let isAnimating = false;
 
 goAway.addEventListener('click', () => {
-    if (isAnimating) return; // ignore clicks while an animation cycle is in progress
+    if (isAnimating) return;
     isAnimating = true;
 
     goAway.disabled = true;
@@ -602,11 +603,11 @@ goAway.addEventListener('click', () => {
     goAway.classList.add('moveOut');
     choices.style.display = 'inline-block';
 
-    void choices.offsetWidth;
-    choices.classList.remove('move');
+    nextPaint(() => {
+        choices.classList.remove('move');
+    });
 
-    
-     isTransitioningToWork = false;
+    isTransitioningToWork = false;
 
     setTimeout(() => {
         goAway.style.display = 'none';
@@ -614,7 +615,6 @@ goAway.addEventListener('click', () => {
         mainContainer.classList.remove('moveOut');
         mainContainer.classList.add('move');
         work.disabled = false;
-        isAnimating = false; // unlock once fully done
+        isAnimating = false;
     }, 1000);
-
 });
