@@ -484,24 +484,65 @@
             position: absolute;
             color: white;
         }
-        #name{
 
-            top: 50%;
+        #textInput{
             left: 50%;
+            top: 40%;
+            width: 20%;
+            height: 100%;
             text-align: left;
-            padding: 0;
-            width: 30%;
             margin: 0;
+            padding: 0;
             font-size: 1em;
             position: absolute;
-            background: none;
-            border: none;
-            border-bottom: 0.05em solid #333333;
-            color:white;
+            color: white;
         }
-        #name::placeholder{
-            color: #333333;
-            opacity: 0.2;
+
+        #name{
+
+            top: 10%;
+            left: 0%;
+            position: absolute;
+            border: none;
+            border-bottom: 2px solid white;
+            width: 100%;
+            height: 10%;
+            background: none;
+            font-size: 1em;
+            color: white;
+            z-index: 300;
+            transition: 1s;
+            border-radius: 15px;
+
+        }
+
+        #name:focus{
+            outline: none;
+            border: 2px solid white;
+            transition: 1s;
+        }
+
+        #placeHolderText{
+            top: 10%;
+            left: 0%;
+            position:absolute;
+            width: 100%;
+            height: 10%;
+            width: 60%;
+            font-Size: 1em;
+            text-align: center;
+            background: none;
+            font-size: none;
+            color: white;
+            opacity: 0.5;
+            z-index: 200;
+            transition: 1s;
+            background: #D8D1C8;
+        }
+
+        .nameInput{
+            transform: translate(5%, -50%);
+            
         }
 
         #choices{
