@@ -631,6 +631,7 @@ goAway.addEventListener('click', () => {
     mainContainer.classList.add('moveOut');
     goAway.classList.add('moveOut');
     choices.style.display = 'inline-block';
+    howItWork.classList.add('moveOut');
 
     nextPaint(() => {
         choices.classList.remove('move');
@@ -639,6 +640,9 @@ goAway.addEventListener('click', () => {
     isTransitioningToWork = false;
 
     setTimeout(() => {
+        howItWork.style.display = 'none';
+        howItWork.classList.remove('moveOut');
+        howItWork.classList.add('move');
         goAway.style.display = 'none';
         mainContainer.style.display = 'none';
         mainContainer.classList.remove('moveOut');
@@ -646,4 +650,35 @@ goAway.addEventListener('click', () => {
         work.disabled = false;
         isAnimating = false;
     }, 1000);
+
 });
+
+const howItWork = document.getElementById('howItWork');
+
+howItWork.classList.add('move');
+howItWork.style.display = 'none';
+
+
+anotherPage.addEventListener('click', showText);
+
+
+function showText(){
+
+    howItWork.style.display = 'inline-block';
+    choices.classList.add('moveOut');
+    goAway.style.display = 'inline-block';
+    goAway.disabled = false;
+    nextPaint(() => {
+        howItWork.classList.remove('move');
+    });
+    nextPaint(() => { 
+        goAway.classList.remove('moveOut');
+    });
+
+    setTimeout(() => {
+        choices.style.display = 'none';
+        choices.classList.remove('moveOut');
+        choices.classList.add('move');
+    }, 1000);
+
+}
