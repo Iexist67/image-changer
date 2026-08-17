@@ -1,5 +1,183 @@
+// program to change an image to look like anothher image
 
 
+// storing code here 
+
+
+// stores html code
+const html = `
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <link rel='stylesheet' href='style.css' />
+        <title> Image Changer </title>
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicon_io/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon_io/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon_io/favicon-16x16.png">
+    </head>
+    <body>
+
+        <p id="text2"> *No Data is Saved</p>
+
+        <div id="startingScreen">
+
+            <p id="welcomeTitle"> Welcome,</p>
+
+            <div id="textInput">
+            <input type="text" id="name"/>
+            <span id="placeHolderText">Name</span>
+            </div>
+            
+        </div>
+
+        <div id="choices" hidden>
+
+            <button id="work"> Work </button>
+
+            <button id="anotherPage"> How It Work </button>
+
+            <button id="code"> Code </button>
+
+
+        </div>
+
+        
+        <button id="goAway" disabled> Go Back </button>
+
+        <div id="mainContainer">
+            <div id="canvasContainer">
+                <canvas id="imageArea"></canvas>
+                <canvas id="reference"> </canvas>
+            </div>
+
+            
+            <div id="fileOpener" style="display:none">
+                <div id="file1">
+                    <button id="cancel1" class="cancelButtonInactive"> X </button>
+                    <p id="preview1"></p>
+                    <span id="wordsInside1">Click or Drag an image file</span>
+                    <input type="file" id="imageInput1" accept="image/*" hidden>
+                </div>
+                <div id="file2">
+                    <button id="cancel2" class="cancelButtonInactive"> X </button>
+                    <p id="preview2"></p>
+                    <span id="wordsInside2">Click or Drag an image file</span>
+                    <input type="file" id="imageInput2" accept="image/*" hidden>
+                </div>
+            </div>
+
+            <div id="controlPanel">
+                <button id="openFileDropper"> Program Start <span id="noClick1" class="noClicked"></span></button>
+
+                <button id="downloadButton">Download Image <span id="noClick4" class="clicked"></span></button>
+
+                <button id="startImages" disabled> Start Load Process <span id="noClick2" class="clicked"></span> <span id="show1" class="red"></span> <span id="show2" class="red"></span></button>
+                
+                <button id="runAnimation"> Run Animation <span id="noClick3" class="clicked"></span> <span id="loadBar"><span id="loadBarGreen"></span></span></button>
+
+                <button id="restart"> Program Finish <span id="noClick5" class="clicked"></span></button>
+
+                <p id="controlPanelTitle"> Control Panel </p>
+
+            </div>
+        </div>
+    
+    <div id="howItWork">
+
+        <div id="justabackground">
+            <p id="text"> 
+                Two images are uploaded by the user — a source image, from which the colors are drawn, and a reference image, from which the target shape is derived. Both images are displayed on the screen, and the color of every single point in each image is read and recorded. Each point is then treated as its own small unit, for which its position and color are stored, and from which a brightness value is calculated using the formula 0.299 * red + 0.587 * green + 0.114 * blue, where red, green, and blue each represent how much of that color is present at that point. This particular formula is used instead of a simple average because it reflects how a human eye actually perceives light and dark — green is naturally seen as far brighter than red or blue at the same intensity, so it is weighted much more heavily in the calculation. Once every point in both images has been measured this way, the points from each image are ordered from darkest to lightest, producing a ranked list of colors from the source image and a ranked list of positions from the reference image.
+
+These two ranked lists are then matched up according to their shared order: the color that was ranked, say, the hundredth-darkest in the source image is reassigned to wherever the hundredth-darkest point was located in the reference image. In this way, the palette of colors from the source image is reshaped to follow the light-and-dark pattern of the reference image — the darkest areas of the reference are filled in with the darkest available source colors, and the lightest areas are filled in with the lightest. For each point, the distance it needs to travel from its starting position to its new position is calculated and broken into many small, even steps, so that the transformation can unfold gradually rather than happening all at once.
+
+This gradual transformation is then animated on screen, with every point being nudged a small amount toward its new position, frame by frame, until it settles into place. While this is happening, a loading bar fills up in step with the progress, giving the user a clear sense that the transformation is underway. Once every point has reached its destination, the image is left fully rearranged — still made up of the source image's original colors, but now shaped according to the reference image's pattern of light and dark — and the final result can then be saved as an image file to the user's device.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div id="codeContainer">
+
+        <p id="gitHub"> Github </p>
+
+        <div id="codeBase">
+
+            <div id="tabs">
+                <button id="html"> index.html </button>
+
+                <button id="css"> style.css </button>
+
+                <button id="js1"> main.js </button>
+
+                <button id="js2"> square.js </button>
+
+                <span id="transitioner"></span>
+            </div>
+
+            <p id="actualCode"> 
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+    <script src="square.js" type="module"></script>
+    <script src="main.js" type="module"></script>
+   
+    </body>
+
+</html>
+`;
+
+const css = `
+
+`;
+
+const js1 =  `
+
+`;
+
+const js2 = `
+export default class square{
+    constructor(x, y, r, g, b, a){
+        this.height = 2;
+        this.width = 2;
+        this.x = x;
+        this.y = y;
+        this.r = r;
+        this.g = g;
+        this.b = b;
+        this.a = a;
+        this.color = \`rgba(\${r}, \${g}, \${b}, \${a/255})\`;
+        this.gray = (0.299 * this.r + 0.587 * this.g + 0.114 * this.b);
+        this.newX = x;
+        this.newY = y;
+        this.changeX = 0;
+        this.changeY = 0;
+    }
+    changeNews(x, y){
+        this.newX = x;
+        this.newY = y;
+    }
+
+    calculateDistance(){
+        this.changeX = (this.newX - this.x) / 100;
+        this.changeY = (this.newY - this.y) / 100;
+    }
+    changeXY(){
+        this.x += this.changeX;
+        this.y += this.changeY;
+    }
+
+}
+`;
+
+// start of actual alorithm
 import square from "./square.js";
 
 function nextPaint(callback){
@@ -193,6 +371,7 @@ function animateSquares(time){
     }
 
 }
+// end of actual alorithm
 
 
 
@@ -554,7 +733,7 @@ function nameChange(){
     placeHolderText.classList.remove('nameInput');
     placeHolderText.style.zIndex = '200';
     placeHolderText.style.fontSize = '1em';
-    placeHolderText.style.height = '0%';
+    placeHolderText.style.height = '100%';
     placeHolderText.style.width = '60%';
     placeHolderText.style.opacity = "0.5";
 
@@ -602,10 +781,12 @@ work.addEventListener('click', () => {
     if (isTransitioningToWork) return;
     isTransitioningToWork = true;
 
+    code.disabled = true;
+    anotherPage.disabled = true;
     work.disabled = true;
+
     mainContainer.style.display = 'inline-block';
     goAway.style.display = 'inline-block';
-    goAway.disabled = false;
 
     nextPaint(() => {
         mainContainer.classList.remove('move');
@@ -618,6 +799,7 @@ work.addEventListener('click', () => {
         choices.classList.add('move');
         choices.classList.remove('moveOut');
         isTransitioningToWork = false;
+        goAway.disabled = false;
     }, 1000);
 });
 
@@ -632,6 +814,7 @@ goAway.addEventListener('click', () => {
     goAway.classList.add('moveOut');
     choices.style.display = 'inline-block';
     howItWork.classList.add('moveOut');
+    codeContainer.classList.add('moveOut');
 
     nextPaint(() => {
         choices.classList.remove('move');
@@ -647,8 +830,13 @@ goAway.addEventListener('click', () => {
         mainContainer.style.display = 'none';
         mainContainer.classList.remove('moveOut');
         mainContainer.classList.add('move');
-        work.disabled = false;
+        codeContainer.style.display = 'none';
+        codeContainer.classList.remove('moveOut');
+        codeContainer.classList.add('move');
         isAnimating = false;
+        code.disabled = false;
+        anotherPage.disabled = false;
+        work.disabled = false;
     }, 1000);
 
 });
@@ -664,10 +852,14 @@ anotherPage.addEventListener('click', showText);
 
 function showText(){
 
+    
+    code.disabled = true;
+    anotherPage.disabled = true;
+    work.disabled = true;
+
     howItWork.style.display = 'inline-block';
     choices.classList.add('moveOut');
     goAway.style.display = 'inline-block';
-    goAway.disabled = false;
     nextPaint(() => {
         howItWork.classList.remove('move');
     });
@@ -679,6 +871,108 @@ function showText(){
         choices.style.display = 'none';
         choices.classList.remove('moveOut');
         choices.classList.add('move');
+        goAway.disabled = false;
     }, 1000);
 
 }
+
+
+const htmlCode = document.getElementById('html');
+const cssCode = document.getElementById('css');
+const js1Code = document.getElementById('js1');
+const js2Code = document.getElementById('js2');
+const transitioner = document.getElementById('transitioner');
+const actualCode = document.getElementById('actualCode');
+const codeContainer = document.getElementById('codeContainer');
+const code = document.getElementById('code');
+const gitHub = document.getElementById('gitHub');
+
+gitHub.addEventListener('click', () => {
+    window.open('https://github.com/Billet1010/image-changer', '_blank');
+})
+
+code.addEventListener('click', () => {
+
+    codeContainer.style.display = 'inline-block';
+    goAway.style.display = 'inline-block';
+    choices.classList.add('moveOut');
+
+
+    code.disabled = true;
+    anotherPage.disabled = true;
+    work.disabled = true;
+
+    nextPaint(() => {
+        codeContainer.classList.remove('move');
+    });
+    nextPaint(() => {
+        goAway.classList.remove('moveOut');
+    });
+
+    setTimeout(() => {
+
+        choices.style.display = 'none';
+        choices.classList.remove('moveOut');
+        choices.classList.add('move');
+        goAway.disabled = false;
+
+    }, 1000);
+
+
+});
+
+
+codeContainer.style.display = 'none';
+codeContainer.classList.add('move');
+
+
+
+htmlCode.style.color = '#00ffff';
+cssCode.style.color = 'white';
+js1Code.style.color = 'white';
+js2Code.style.color = 'white';
+actualCode.textContent = html;
+
+htmlCode.addEventListener('click', () => {
+
+    transitioner.style.transform = 'translateX(0%)';
+    htmlCode.style.color = '#00ffff';
+    cssCode.style.color = 'white';
+    js1Code.style.color = 'white';
+    js2Code.style.color = 'white';
+    actualCode.textContent = html;
+
+});
+
+cssCode.addEventListener('click', () => {
+
+    transitioner.style.transform = 'translateX(165%)';
+     htmlCode.style.color = 'white';
+    cssCode.style.color = '#00ffff';
+    js1Code.style.color = 'white';
+    js2Code.style.color = 'white';
+    actualCode.textContent = css;
+});
+
+js1Code.addEventListener('click', () => {
+
+    transitioner.style.transform = 'translateX(330%)';
+     htmlCode.style.color = 'white';
+    cssCode.style.color = 'white';
+    js1Code.style.color = '#00ffff';
+    js2Code.style.color = 'white';
+    actualCode.textContent = js1;
+
+});
+
+js2Code.addEventListener('click', () => {
+
+    transitioner.style.transform = 'translateX(495%)';
+    htmlCode.style.color = 'white';
+    cssCode.style.color = 'white';
+    js1Code.style.color = 'white';
+    js2Code.style.color = '#00ffff';
+    actualCode.textContent = js2;
+    
+});
+
