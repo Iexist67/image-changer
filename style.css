@@ -484,24 +484,78 @@
             position: absolute;
             color: white;
         }
-        #name{
 
-            top: 50%;
+        #textInput{
             left: 50%;
+            top: 40%;
+            width: 20%;
+            height: 100%;
             text-align: left;
-            padding: 0;
-            width: 30%;
             margin: 0;
+            padding: 0;
             font-size: 1em;
             position: absolute;
-            background: none;
-            border: none;
-            border-bottom: 0.05em solid #333333;
-            color:white;
+            color: white;
         }
-        #name::placeholder{
-            color: #333333;
-            opacity: 0.2;
+
+        #name{
+
+            top: 10%;
+            left: 0%;
+            position: absolute;
+            border: none;
+            border-bottom: 2px solid white;
+            width: 150%;
+            height: 10%;
+            background: none;
+            font-size: 1em;
+            color: white;
+            z-index: 300;
+            transition: 1s;
+            border-radius: 15px;
+
+        }
+
+        #text2 {
+            position: fixed;
+            left: 93%;
+            top: 2%;
+            font-size: 0.75vw;
+            color: red;
+            height: 5%;
+            width: 10%;
+
+        }
+
+        #name:focus{
+            outline: none;
+            border: 2px solid white;
+            transition: 1s;
+        }
+
+        #placeHolderText{
+            top: 10%;
+            left: 0%;
+            position:absolute;
+            width: 100%;
+            height: 10%;
+            width: 60%;
+            font-Size: 1em;
+            text-align: center;
+            background: none;
+            font-size: none;
+            color: white;
+            opacity: 0.5;
+            z-index: 200;
+            transition: 1s;
+            background: #D8D1C8;
+            padding: 2px;
+            pointer-events: none;
+        }
+
+        .nameInput{
+            transform: translate(5%, -75%);
+            
         }
 
         #choices{
@@ -580,26 +634,28 @@
             border:none;
             background: none;
             font-size: 20vh;
+            transition: 1s;
         }
         #justabackground{
             position: absolute;
-            top: 10%;
-            left: 10%;
+            top: 20%;
+            left: 0%;
 
-            width: 80%;
+            width: 100%;
             height: 80%;
 
-            background-color: #333333;
+            background-color: #D8D1C8;
 
             border:none;
-            padding: 35px;
+            padding: 0px;
 
             overflow: auto;
             border-radius: 35px;
+            transition: 1s;
         }
 
         #text{
-            color: white;
+            color: #333333;
             font-size: 0.2em;
         
         }

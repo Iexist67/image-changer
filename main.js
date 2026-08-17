@@ -322,6 +322,7 @@ const wordsInside1 = document.getElementById("wordsInside1");
 const wordsInside2 = document.getElementById("wordsInside2");
 const cancellation1 = document.getElementById("cancel1");
 const cancellation2 = document.getElementById("cancel2");
+const textInput = document.getElementById("textInput");
 
 const restartButton = document.getElementById('restart');
 const show1 = document.getElementById("show1");
@@ -531,6 +532,7 @@ const anotherPage = document.getElementById("anotherPage");
 const mainContainer = document.getElementById("mainContainer");
 const goAway = document.getElementById("goAway");
 const canvasContainer = document.getElementById("canvasContainer");
+const placeHolderText = document.getElementById('placeHolderText');
 
 canvasContainer.classList.add('move');
 canvasContainer.style.display = 'none';
@@ -543,6 +545,32 @@ mainContainer.classList.add('move');
 choices.style.display = 'none';
 choices.classList.add('move');
 
+
+name.addEventListener('focus', changeInputTitleText);
+name.addEventListener('blur', nameChange);
+
+function nameChange(){
+
+    placeHolderText.classList.remove('nameInput');
+    placeHolderText.style.zIndex = '200';
+    placeHolderText.style.fontSize = '1em';
+    placeHolderText.style.height = '0%';
+    placeHolderText.style.width = '60%';
+    placeHolderText.style.opacity = "0.5";
+
+}
+
+function changeInputTitleText(){
+
+    placeHolderText.classList.add('nameInput');
+    placeHolderText.style.zIndex = '400';
+    placeHolderText.style.fontSize = '0.5em';
+    placeHolderText.style.height = '5%';
+    placeHolderText.style.width = '30%';
+    placeHolderText.style.opacity = "1";
+    console.log('hi');
+
+}
 
 
 function handleEnterKey(e){
@@ -557,6 +585,7 @@ function handleEnterKey(e){
             welcomeTitle.style.left = '15%';
             welcomeTitle.style.width = '70%';
             name.style.display = 'none';
+            placeHolderText.style.display = 'none';
             name.disabled = true;
             name.style.borderBottom = 'none';
             name.style.color = 'white';
@@ -602,6 +631,7 @@ goAway.addEventListener('click', () => {
     mainContainer.classList.add('moveOut');
     goAway.classList.add('moveOut');
     choices.style.display = 'inline-block';
+    howItWork.classList.add('moveOut');
 
     nextPaint(() => {
         choices.classList.remove('move');
@@ -610,6 +640,9 @@ goAway.addEventListener('click', () => {
     isTransitioningToWork = false;
 
     setTimeout(() => {
+        howItWork.style.display = 'none';
+        howItWork.classList.remove('moveOut');
+        howItWork.classList.add('move');
         goAway.style.display = 'none';
         mainContainer.style.display = 'none';
         mainContainer.classList.remove('moveOut');
@@ -617,4 +650,35 @@ goAway.addEventListener('click', () => {
         work.disabled = false;
         isAnimating = false;
     }, 1000);
+
 });
+
+const howItWork = document.getElementById('howItWork');
+
+howItWork.classList.add('move');
+howItWork.style.display = 'none';
+
+
+anotherPage.addEventListener('click', showText);
+
+
+function showText(){
+
+    howItWork.style.display = 'inline-block';
+    choices.classList.add('moveOut');
+    goAway.style.display = 'inline-block';
+    goAway.disabled = false;
+    nextPaint(() => {
+        howItWork.classList.remove('move');
+    });
+    nextPaint(() => { 
+        goAway.classList.remove('moveOut');
+    });
+
+    setTimeout(() => {
+        choices.style.display = 'none';
+        choices.classList.remove('moveOut');
+        choices.classList.add('move');
+    }, 1000);
+
+}
