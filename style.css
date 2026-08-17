@@ -473,23 +473,29 @@
             margin: 0;
             padding: 0;
         }
+
         #welcomeTitle{
             left: 28%;
-            top: 50%;
+            top: 45%;
             width: 20%;
+            height: 10%;
             text-align: center;
             padding: 0;
             margin: 0;
             font-size: 1em;
             position: absolute;
             color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         #textInput{
             left: 50%;
-            top: 40%;
+            top: 50%;                 /* changed from top:0 — align vertically with welcomeTitle */
+            transform: translateY(-50%); /* centers this block on that 45% line, same reference point as welcomeTitle */
             width: 20%;
-            height: 100%;
+            height: 10%;               /* changed from 100% — matches welcomeTitle's height instead of filling the whole screen */
             text-align: left;
             margin: 0;
             padding: 0;
@@ -499,21 +505,19 @@
         }
 
         #name{
-
-            top: 10%;
-            left: 0%;
             position: absolute;
-            border: none;
+            top: 0;                    /* now relative to #textInput, which is already vertically aligned */
+            left: 0%;
+            width: 100%;                /* changed from 150% — stay within #textInput's own box, no overflow */
+            height: 100%;                /* changed from 10% — fill #textInput's height exactly */
+            border:none;
             border-bottom: 2px solid white;
-            width: 150%;
-            height: 10%;
+            border-radius: 15px;
             background: none;
-            font-size: 1em;
+            font-size: 0.6em;            /* relative to #startingScreen's 5vw, scales consistently with welcomeTitle */
             color: white;
             z-index: 300;
             transition: 1s;
-            border-radius: 15px;
-
         }
 
         #text2 {
@@ -524,7 +528,6 @@
             color: red;
             height: 5%;
             width: 10%;
-
         }
 
         #name:focus{
@@ -534,37 +537,36 @@
         }
 
         #placeHolderText{
-            top: 10%;
-            left: 0%;
-            position:absolute;
-            width: 100%;
-            height: 10%;
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 60%;
-            font-Size: 1em;
+            height: 100%;                /* matches #name's height now, instead of a separate 10% */
+            display: flex;
+            align-items: center;
+            justify-content: left;
             text-align: center;
-            background: none;
-            font-size: none;
+            background: #D8D1C8;
             color: white;
             opacity: 0.5;
             z-index: 200;
             transition: 1s;
-            background: #D8D1C8;
             padding: 2px;
             pointer-events: none;
+            font-size: 1em; /* matches #name, consistent scaling */
         }
 
         .nameInput{
             transform: translate(5%, -75%);
-            
         }
 
         #choices{
 
             position: fixed;
             top: 37.5%;
-            left: 20%;
+            left: 12.5%;
             height: 25%;
-            width: 60%;
+            width: 75%;
             background-color: #333333;
             border-radius: 35px;
             font-size: 2em;
@@ -574,10 +576,10 @@
         #work{
             position: absolute;
             top: 50%;
-            left: 30%;
+            left: 25%;
             transform: translate(-50%, -50%);
             height: 50%;
-            width: 35%;
+            width: 20%;
             border-radius: 35px;
             border: none;
             background-color: #D8D1C8;
@@ -588,15 +590,30 @@
         #anotherPage{
             position: absolute;
             top: 50%;
-            left: 70%;
+            left: 50%;
             transform: translate(-50%, -50%);
             height: 50%;
-            width: 35%;
+            width: 20%;
             border-radius: 35px;
             border:none;
             background-color:#D8D1C8;
             font-size: 1em;
             
+        }
+
+        #code{
+
+            position:absolute;
+            top: 50%;
+            left: 75%;
+            transform:translate(-50%, -50%);
+            height: 50%;
+            width: 20%;
+            border-radius: 35px;
+            border: none;
+            background-color: #D8D1C8;
+            font-size: 1em;
+
         }
 
         #goAway{
@@ -657,6 +674,7 @@
         #text{
             color: #333333;
             font-size: 0.2em;
+            padding: 5%;
         
         }
 
@@ -666,3 +684,149 @@
         button{
             cursor: default;
         }
+
+
+        #codeContainer{
+            position:fixed;
+            top:15%;
+            left:0%;
+            width: 100%;
+            height: 85%;
+            font-size: 5vw;
+            transition: 1s;
+        }
+
+        #gitHub{
+            position:absolute;
+            font-size: 0.4em;
+            left: 15%;
+            top: 5%;
+            height: 5%;
+            width: 10%;
+            transform: translate(-50%, -50%);
+            color: white;
+            border-radius: 35px;
+            background-color: #333333;
+            text-align: center;
+            margin: 0;
+            border:none;
+
+        }
+
+        #tabs{
+            position: absolute;
+            top: -5%;
+            height: 5%;
+            left: 25%;
+            width: 50%;
+            border-radius: 35px 35px 0px 0px;
+            background-color:#333333;
+        }
+
+        #html{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            height: 100%;
+            width: 25%;
+            border-radius: 35px 0px 0px 0px;
+            background: none;
+            border-color: white;
+            border-width: 0 1px 0px 0px;
+            font-size: 0.25em;
+            transition: 1s;
+        }
+
+        #css{
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translateY(-50%);
+            height: 100%;
+            width: 25%;
+            border-radius: 0px 0px 0px 0px;
+            background: none;
+            border-color: white;
+            border-width: 0 1px 0px 1px;
+            font-size: 0.25em;
+            transition: 1s;
+        }
+        #js1{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateY(-50%);
+            height: 100%;
+            width: 25%;
+            border-radius: 0px 0px 0px 0px;
+            background: none;
+            border-color: white;
+            border-width: 0px 1px 0px 1px;
+            font-size: 0.25em;
+            transition: 1s;
+        }
+        #js2{
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translateY(-50%);
+            height: 100%;
+            width: 25%;
+            border-radius: 0px 35px 0px 0px;
+            background: none;
+            border-width: 0px 0px 0px 1px;
+            border-color: white;
+            color: white;
+            font-size: 0.25em;
+            transition: 1s;
+        }
+
+        #transitioner{
+            position: absolute;
+            background-color: #CCCCCC;
+            opacity: 0.2;
+            border-radius: 15px;
+            top: 5%;
+            height: 90%;
+            left: 5%;
+            width: 15%;
+            z-index: 9999;
+            transition: 1s;
+
+        }
+
+        #codeBase{
+            position:absolute;
+            top: 10%;
+            border-radius: 35px 35px 35px 35px;
+            height: 90%;
+            width: 98%;
+            left: 50%;
+            transform:translateX(-50%);
+            background-color:#333333;
+            padding: 0;
+            margin: 0;
+
+        }
+
+        #actualCode{
+            background-color:#002b36;
+            position: absolute;
+            border-radius: 15px;
+            top: 2.5%;
+            left: 2%;
+            height: 95%;
+            width: 96%;
+            margin: 0;
+            overflow: auto; /* changed from hidden — allow scrolling if content is long */
+            white-space: pre-wrap; /* preserves line breaks/indentation, wraps long lines */
+            color: white; /* make sure text color is visible against the dark background */
+            font-family: monospace;
+            padding: 10px;
+            box-sizing: border-box;
+            transition:1s;
+            font-size: 0.2em;
+        }
+
+
