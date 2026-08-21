@@ -1,5 +1,5 @@
         html{
-            font-size: 0.1vh;
+            font-size: 10vmin;
         }        
         body {
             margin: 0;
@@ -66,7 +66,6 @@
             overflow:hidden;
             z-index:101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
-            font-size: 25vw;
             cursor:default;
         }
         #file1:hover{
@@ -88,7 +87,6 @@
             z-index: 101;
             box-shadow: 0px 0px 1px 1px #abdf901a;
             cursor:default;
-            font-size: 25vw;
         }
         #file2:hover{
             cursor:pointer;
@@ -111,12 +109,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size:25px;
             margin:0;
             padding:0;
             width:100%;
             text-align:center;
             color:white;
+            font-size: 0.5rem;
         }
         #wordsInside2{
             pointer-events:none;
@@ -125,12 +123,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size:25px;
             margin:0;
             padding:0;
             width:100%;
             text-align:center;
             color:white;
+            font-size: 0.5rem;
         }
 
         @keyframes pulsify{
@@ -195,18 +193,15 @@
         }
 
         .cancelButtonInactive{
-            font-size: 1em;
             opacity: 0;
             pointer-events:none;
         }
         .cancelButtonActive{
-            font-size: 1em;
             pointer-events: auto;
             opacity: 0;
             transition: 1s;
         }
         .cancelButtonActive:hover{
-            font-size: 1em;
             opacity:1;
             transition:1s;
         }
@@ -226,6 +221,7 @@
             border: solid;
             border-color:white;
             border-width: 0px 1px 0px 1px;
+            font-size: 0.3rem;
         }
 
          #downloadButton{
@@ -242,6 +238,7 @@
             border: solid;
             border-color:white;
             border-width: 0px 1px 0px 1px;
+            font-size: 0.3rem;
         }
 
         #openFileDropper{
@@ -259,6 +256,7 @@
             border: solid;
             border-color:white;
             border-width: 0px 1px 0px 1px;
+            font-size: 0.3rem;
         }
 
         #runAnimation{
@@ -276,6 +274,7 @@
             border-color:white;
             border-width: 0px 1px 0px 1px;
             padding: 0;
+            font-size: 0.3rem;
         }
 
         #restart{
@@ -293,6 +292,7 @@
             border: solid;
             border-color:white;
             border-width: 0px 1px 0px 1px;
+            font-size: 0.3rem;
         }
 
         #controlPanel{
@@ -307,21 +307,21 @@
             background-color:#333333;
             z-index: 200;
             padding:0;
-            font-size: 0.1vh;
         }
 
         #controlPanelTitle{
             position: absolute;
             left:50%;
-            top: -20%;
+            top: -15%;
             transform:translate(-50%, -50%);
             height: 25%;
             width:25%;
             background-color: #333333;
             border-radius: 15px 15px 0px 0px;
             color:white;
+            padding:0;
             text-align: center;
-            font-size: 16px;
+            font-size: 0.2rem;
 
         }
 
@@ -434,8 +434,6 @@
 
             overflow:hidden;
 
-            font-size: 1em;
-
         }
 
         #loadBarGreen{
@@ -452,9 +450,9 @@
 
             transform:translate(-50%, -50%);
             background-color: green;
+            padding: 0;
 
-            
-            font-size: 1em;
+            font-size: 0.17rem;
 
 
         }
@@ -475,96 +473,85 @@
             height: 100%;
             width: 100%;
             position: fixed;
-            font-size: 5vw;
             transition: 1s;
             margin: 0;
             padding: 0;
         }
 
         #welcomeTitle{
-            left: 28%;
-            top: 45%;
-            width: 20%;
+            left: 50%;
+            transform: translate(-50%);
+            top: 40%;
+            width: 100%;
             height: 10%;
             text-align: center;
             padding: 0;
             margin: 0;
-            font-size: 1em;
             position: absolute;
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-size:1rem;
         }
 
-        #textInput{
-            left: 50%;
-            top: 50%;                 /* changed from top:0 — align vertically with welcomeTitle */
-            transform: translateY(-50%); /* centers this block on that 45% line, same reference point as welcomeTitle */
-            width: 20%;
-            height: 10%;               /* changed from 100% — matches welcomeTitle's height instead of filling the whole screen */
-            text-align: left;
-            margin: 0;
-            padding: 0;
-            font-size: 1em;
+        #placeHolderText{
             position: absolute;
-            color: white;
         }
 
         #name{
             position: absolute;
-            top: 0;                    /* now relative to #textInput, which is already vertically aligned */
-            left: 0%;
-            width: 100%;                /* changed from 150% — stay within #textInput's own box, no overflow */
-            height: 100%;                /* changed from 10% — fill #textInput's height exactly */
-            border:none;
-            border-bottom: 2px solid white;
+            width: 30%;               
+            height: 10%;  
+            text-align:center;
+            border: 2px solid white;
             border-radius: 15px;
-            background: none;
-            font-size: 0.6em;            /* relative to #startingScreen's 5vw, scales consistently with welcomeTitle */
+            text-align: left;
+            margin: 0;
+            padding: 2px;
+            background: none;       /* relative to #startingScreen's 5vw, scales consistently with welcomeTitle */
             color: white;
             z-index: 300;
             transition: 1s;
+            font-size: 1rem;
+            left: 50%;
+            transform:translateX(-50%);
+            top: 45%;
+
+        }
+        #placeHolderText{
+            position:absolute;
+            width: 30%;
+            height: 10%;
+            top: 45%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            color: white;
+            opacity: 0.5;
+            text-align: left;
+            border:none;
+            padding: 0;
+            margin: 0;
+            z-index: 200;
+            transition: 1s;
+            background-color:#D8D1C8;
+            display: flex;
+            align-items: center;
+            pointer-events:none;
         }
 
         #text2 {
             position: fixed;
             left: 93%;
             top: 2%;
-            font-size: 0.75vw;
             color: red;
             height: 5%;
             width: 10%;
+            font-size: 0.1rem;
         }
 
         #name:focus{
             outline: none;
             border: 2px solid white;
             transition: 1s;
-        }
-
-        #placeHolderText{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 60%;
-            height: 100%;                /* matches #name's height now, instead of a separate 10% */
-            display: flex;
-            align-items: center;
-            justify-content: left;
-            text-align: center;
-            background: #D8D1C8;
-            color: white;
-            opacity: 0.5;
-            z-index: 200;
-            transition: 1s;
-            padding: 2px;
-            pointer-events: none;
-            font-size: 1em; /* matches #name, consistent scaling */
-        }
-
-        .nameInput{
-            transform: translate(5%, -75%);
         }
 
         #choices{
@@ -576,7 +563,6 @@
             width: 75%;
             background-color: #333333;
             border-radius: 35px;
-            font-size: 2em;
             transition: 1s;
         }
 
@@ -590,7 +576,7 @@
             border-radius: 35px;
             border: none;
             background-color: #D8D1C8;
-            font-size: 1em;
+            font-size: 0.5rem;
 
         }
 
@@ -604,7 +590,7 @@
             border-radius: 35px;
             border:none;
             background-color:#D8D1C8;
-            font-size: 1em;
+            font-size: 0.5rem;
             
         }
 
@@ -619,7 +605,7 @@
             border-radius: 35px;
             border: none;
             background-color: #D8D1C8;
-            font-size: 1em;
+            font-size: 0.5rem;
 
         }
 
@@ -636,6 +622,7 @@
             border-radius: 35px;
             z-index: 500;
             transition: 1s;
+            font-size: 0.25rem;
         }
 
         /* This is the move animation */
@@ -657,7 +644,6 @@
             padding: 0;
             border:none;
             background: none;
-            font-size: 20vh;
             transition: 1s;
         }
         #justabackground{
@@ -692,13 +678,11 @@
             left:0%;
             width: 100%;
             height: 85%;
-            font-size: 5vw;
             transition: 1s;
         }
 
         #gitHub{
             position:absolute;
-            font-size: 0.4em;
             left: 15%;
             top: 5%;
             height: 5%;
@@ -711,7 +695,7 @@
             margin: 0;
             padding: 0;
             border:none;
-            font-size: 1rem;
+            font-size: 0.2rem;
 
         }
 
@@ -736,8 +720,8 @@
             background: none;
             border-color: white;
             border-width: 0 1px 0px 0px;
-            font-size: 0.25em;
             transition: 1s;
+            font-size: 0.2rem;
         }
 
         #css{
@@ -751,8 +735,8 @@
             background: none;
             border-color: white;
             border-width: 0 1px 0px 1px;
-            font-size: 0.25em;
             transition: 1s;
+            font-size: 0.2rem;
         }
         #js1{
             position: absolute;
@@ -765,8 +749,8 @@
             background: none;
             border-color: white;
             border-width: 0px 1px 0px 1px;
-            font-size: 0.25em;
             transition: 1s;
+            font-size: 0.2rem;
         }
         #js2{
             position: absolute;
@@ -780,8 +764,8 @@
             border-width: 0px 0px 0px 1px;
             border-color: white;
             color: white;
-            font-size: 0.25em;
             transition: 1s;
+            font-size: 0.2rem;
         }
 
         #transitioner{
@@ -828,7 +812,7 @@
             padding: 10px;
             box-sizing: border-box;
             transition:1s;
-            font-size: 0.2em;
+            font-size: 0.2rem;
         }
 
 

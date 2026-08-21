@@ -557,29 +557,37 @@ choices.classList.add('move');
 name.addEventListener('focus', changeInputTitleText);
 name.addEventListener('blur', nameChange);
 
-function nameChange(){
+function changeInputTitleText(){
+    placeHolderText.style.zIndex = '400';
+    placeHolderText.style.fontSize = '0.4rem';
+    placeHolderText.style.height = '10%';
+    placeHolderText.style.width = '5%';
+    placeHolderText.style.opacity = "1";
+    placeHolderText.style.top = '37%';
+    placeHolderText.style.textAlign = 'center';
+    placeHolderText.style.left = '37.5%';
+    placeHolderText.style.color = '#333333';
+    name.style.borderColor = '#333333';
+    placeHolderText.style.alignItems = 'flex-end';
+}
 
+function nameChange(){
     placeHolderText.classList.remove('nameInput');
     placeHolderText.style.zIndex = '200';
-    placeHolderText.style.fontSize = '1em';
-    placeHolderText.style.height = '100%';
-    placeHolderText.style.width = '60%';
-    placeHolderText.style.opacity = "0.5";
-
-}
-
-function changeInputTitleText(){
-
-    placeHolderText.classList.add('nameInput');
-    placeHolderText.style.zIndex = '400';
-    placeHolderText.style.fontSize = '0.5em';
-    placeHolderText.style.height = '5%';
+    placeHolderText.style.fontSize = '1rem';
+    placeHolderText.style.height = '10%';
     placeHolderText.style.width = '30%';
-    placeHolderText.style.opacity = "1";
-    console.log('hi');
-
+    placeHolderText.style.opacity = "0.5";
+    placeHolderText.style.textAlign = 'left';
+    // reset back to original centered position
+    placeHolderText.style.top = '45%';
+    placeHolderText.style.left = '50%';
+    placeHolderText.style.transform = 'translateX(-50%)';
+    placeHolderText.style.color = 'white';
+    placeHolderText.style.alignItems = 'center';
 }
 
+welcomeTitle.style.display = 'none';
 
 function handleEnterKey(e){
     if(e.key === 'Enter'){
@@ -589,8 +597,8 @@ function handleEnterKey(e){
         nextPaint(() => {
             startingScreen.classList.add('moveTitleScreen');
             choices.classList.remove('move');
+            welcomeTitle.style.display = 'inline-block';
             welcomeTitle.innerHTML = 'Welcome, ' + name.value;
-            welcomeTitle.style.left = '15%';
             welcomeTitle.style.width = '70%';
             name.style.display = 'none';
             placeHolderText.style.display = 'none';
