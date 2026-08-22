@@ -572,19 +572,21 @@ function changeInputTitleText(){
 }
 
 function nameChange(){
-    placeHolderText.classList.remove('nameInput');
-    placeHolderText.style.zIndex = '200';
-    placeHolderText.style.fontSize = '1rem';
-    placeHolderText.style.height = '10%';
-    placeHolderText.style.width = '30%';
-    placeHolderText.style.opacity = "0.5";
-    placeHolderText.style.textAlign = 'left';
-    // reset back to original centered position
-    placeHolderText.style.top = '45%';
-    placeHolderText.style.left = '50%';
-    placeHolderText.style.transform = 'translateX(-50%)';
-    placeHolderText.style.color = 'white';
-    placeHolderText.style.alignItems = 'center';
+    if(name.value == ''){
+        placeHolderText.style.zIndex = '200';
+        placeHolderText.style.height = '10%';
+        placeHolderText.style.width = '30%';
+        placeHolderText.style.opacity = "0.5";
+        placeHolderText.style.textAlign = 'left';
+        // reset back to original centered position
+        placeHolderText.style.top = '45%';
+        placeHolderText.style.left = '50%';
+        placeHolderText.style.color = 'white';
+        name.style.borderColor = 'white';
+        placeHolderText.style.alignItems = 'center';
+        
+        placeHolderText.style.fontSize = '1rem';
+    }
 }
 
 welcomeTitle.style.display = 'none';

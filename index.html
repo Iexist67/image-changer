@@ -17,7 +17,7 @@
             <p id="welcomeTitle"> Welcome,</p>
 
                 <input type="text" id="name"/>
-                <span id="placeHolderText"> name </span>
+                <span id="placeHolderText"> Name </span>
             
         </div>
 
@@ -77,6 +77,44 @@
 
         <div id="justabackground">
             
+            <p id="textTitle">How the algorithm works</p>
+
+            <p id="actualText1"> 
+                To change an image to look like another image,
+                 one must have two images. A reference image, the 
+                 image that is not changed, and an image, the image
+                 that is changed. To change the image to look like another
+                 image, we must store the data through some means. 
+                 This algorithm is run completely on local javascript, meaning
+                 all the calculations are done on your computer in real time.
+                 When you input an image in, and click on the "start load process" button,
+                all the image data is saved in a javascript object. That means
+                every pixel has its x, y, rgba, and grayscale saved.
+                
+            </p>
+
+            <p id="actualText2">
+                Grayscale is a scalar that holds, in this case, the pixel
+                data of its luminosity and brightness. Grayscale can be calculated
+                with (grayscale = 0.299 * r + 0.587 * g + 0.114 * b). Green
+                is usually more bright than red and blue, so it is taken into
+                account in the formula. So, by storing the object inside the 
+                array, we can access the values inside the array. So, we have
+                the values of all the pixels, now how do we make the imge into another
+                image? To do this we need to sort the image that we want to change, 
+                so that the array is sorted by grayscale, lowest to highest. 
+            </p>
+
+            <p id="actualText3"> 
+
+            </p>
+
+            <p id="actualText4">
+
+            </p>
+
+            <img id="image1" src="testImages/Screenshot 2026-08-21 224809.png" alt="imagelol"/>
+
         </div>
 
     </div>
